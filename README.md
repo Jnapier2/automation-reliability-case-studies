@@ -2,10 +2,12 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Three engineering analyses of controllers that operate across unreliable
-system boundaries. Each study specifies authoritative state, evidence
-requirements, bounded recovery, stopping conditions, and audit records. The
-scenarios are synthetic, and the repository contains no deployable integrations.
+Three engineering analyses of controllers operating across unreliable system
+boundaries. Each study shows how authoritative state, evidence requirements,
+bounded recovery, stopping conditions, and audit records can limit duplicate
+actions, runaway retries, and decisions that cannot be reconstructed after the
+fact. The scenarios are synthetic, and the repository contains no deployable
+integrations.
 
 ## Study map
 
