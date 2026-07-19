@@ -2,24 +2,18 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Documentation-only engineering case studies on how local controllers should
-behave when external systems are slow, ambiguous, or partially unavailable.
-Synthetic scenarios and explicit invariants make state ownership,
-reconciliation, bounded recovery, auditability, and safe stopping reviewable
-without exposing an operational system.
+Three engineering analyses of controllers that operate across unreliable
+system boundaries. Each study specifies authoritative state, evidence
+requirements, bounded recovery, stopping conditions, and audit records. The
+scenarios are synthetic, and the repository contains no deployable integrations.
 
 ## Study map
 
-| Source context | Case-study treatment | Reliability focus |
+| Case study | System boundary | Reliability focus |
 | --- | --- | --- |
-| Event-contract exchange automation | Consolidated detailed analysis | Ambiguous-write reconciliation, idempotent intent, and postcondition checks |
-| Digital-asset exchange automation | Synthetic comparative assessment | Reliability risks and review questions across remote financial systems |
-| Local compute-worker supervision | Consolidated detailed analysis | Identity-bound supervision, health evidence, and bounded recovery |
-| Authorized-media transfer | Standalone detailed analysis | Transfer resilience, integrity staging, and hang detection |
-
-The studies consolidate related systems around the reusable control patterns
-they illuminate. They make no claim that every source system implements every
-safeguard described in the comparative analysis.
+| Ambiguous-write reconciliation | Remote exchange APIs | Idempotent intent, reconciliation, and postcondition checks |
+| Compute-worker supervision | Local process lifecycle | Identity-bound supervision, health evidence, and bounded recovery |
+| Authorized-media transfer | Authenticated remote transfer | Transfer resilience, integrity staging, and hang detection |
 
 ## Case studies
 
@@ -83,14 +77,14 @@ the stated scope and evidence boundaries.
 
 ## Evidence and limitations
 
-These studies demonstrate a structured reliability-review method grounded in
-completed local automation work and synthetic scenarios. They do not claim
-production use, platform endorsement, profitability, trading performance,
-regulatory approval, or uniform implementation of the proposed safeguards.
-Each design still requires implementation-specific threat modeling and tests.
+The analyses use explicit invariants and synthetic failure scenarios. These
+studies do not claim production use, platform endorsement, profitability,
+trading performance, regulatory approval, or implementation of the proposed
+safeguards in any external system. Each design still requires
+implementation-specific threat modeling and tests.
 
 ## Status and rights
 
-These case studies are complete design analyses, not deployment guides or
-maintained software products. See [LICENSE.md](LICENSE.md) and
+These case studies are design analyses, not deployment guides or maintained
+software products. See [LICENSE.md](LICENSE.md) and
 [SECURITY.md](SECURITY.md).
