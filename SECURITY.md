@@ -2,9 +2,10 @@
 
 ## Repository scope
 
-This is a Markdown-only, non-operational portfolio repository. It contains no
-deployable automation, credentials, live service configuration, wallet or pool
-configuration, compiled programs, launchers, or third-party media.
+This repository contains documentation only; there are no executable components
+or live integrations. It contains no deployable automation, credentials, live
+service configuration, wallet or pool configuration, compiled programs,
+launchers, or third-party media.
 
 ## Reporting a concern
 

@@ -1,30 +1,25 @@
 # Automation Reliability Case Studies
 
-Architecture and assurance notes from a private portfolio of twelve automation
-build records, edited into safe, non-operational case studies. Five builds
-support the detailed studies below; seven additional exchange-automation builds
-are represented through an inventory-level, synthetic reliability assessment.
+[![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-The original work explored a common engineering question: how should a local
-controller behave when the external system is slow, ambiguous, or partially
-unavailable? The public material focuses on state ownership, reconciliation,
-bounded recovery, auditability, and safe stopping. Operational details are
-intentionally excluded.
+Documentation-only engineering case studies on how local controllers should
+behave when external systems are slow, ambiguous, or partially unavailable.
+Synthetic scenarios and explicit invariants make state ownership,
+reconciliation, bounded recovery, auditability, and safe stopping reviewable
+without exposing an operational system.
 
-## Portfolio scope
+## Study map
 
-| Private portfolio evidence | Public treatment | Supported public focus |
+| Source context | Case-study treatment | Reliability focus |
 | --- | --- | --- |
-| Two event-contract exchange builds | Detailed consolidated case study | Ambiguous-write reconciliation, idempotent intent, and postcondition checks |
-| Seven digital-asset exchange builds spanning Coinbase, Kraken, and Binance.US environments | Synthetic cross-portfolio assessment | Reliability risks and review questions that apply across remote financial systems |
-| Two local compute-worker builds | Detailed consolidated case study | Identity-bound supervision, health evidence, and bounded recovery |
-| One authorized-media transfer build | Detailed standalone case study | Transfer resilience, integrity staging, and hang detection |
+| Event-contract exchange automation | Consolidated detailed analysis | Ambiguous-write reconciliation, idempotent intent, and postcondition checks |
+| Digital-asset exchange automation | Synthetic comparative assessment | Reliability risks and review questions across remote financial systems |
+| Local compute-worker supervision | Consolidated detailed analysis | Identity-bound supervision, health evidence, and bounded recovery |
+| Authorized-media transfer | Standalone detailed analysis | Transfer resilience, integrity staging, and hang detection |
 
-Related builds are intentionally consolidated because their strongest public
-value is the reliability pattern they illuminate, not their operational
-configuration. The seven additional exchange records establish breadth of
-project experience; they do not, by themselves, establish that every private
-implementation contains every safeguard described in the synthetic assessment.
+The studies consolidate related systems around the reusable control patterns
+they illuminate. They make no claim that every source system implements every
+safeguard described in the comparative analysis.
 
 ## Case studies
 
@@ -43,7 +38,7 @@ flowchart LR
     F -- "No" --> G["Escalate without guessing"]
 ```
 
-## What the public analysis demonstrates
+## Engineering principles
 
 - Separating an intended action from evidence that it occurred
 - Defining recovery policies with attempt, time, and authority boundaries
@@ -52,7 +47,7 @@ flowchart LR
 - Designing audit records to explain why an action was taken or withheld
 - Handling uncertainty with explicit, fail-closed stopping states
 
-## Publication boundary
+## Scope and safety boundary
 
 This repository is documentation only. It does **not** include source code,
 executables, operational commands, service endpoints, authentication flows,
@@ -74,21 +69,28 @@ Each case study is organized around four questions:
 4. How can an operator reconstruct the decision after the fact?
 
 Validation is described through synthetic scenarios and invariants rather than
-live integrations. This makes the reasoning reviewable without exposing a
-usable operational system.
+live integrations. This keeps the reasoning reproducible and the safety
+properties explicit.
 
-## Evidence boundary
+## Validation
 
-This portfolio supports three narrow claims: the private inventory includes
-twelve automation build records; seven exchange-automation records concern
-Coinbase, Kraken, or Binance.US environments; and the published material
-demonstrates a structured reliability-review method. It does not claim
+```bash
+python -m unittest discover -s tests -v
+```
+
+The checks enforce strict UTF-8, resolve every local Markdown link, and verify
+the stated scope and evidence boundaries.
+
+## Evidence and limitations
+
+These studies demonstrate a structured reliability-review method grounded in
+completed local automation work and synthetic scenarios. They do not claim
 production use, platform endorsement, profitability, trading performance,
-regulatory approval, or uniform implementation of the proposed safeguards
-across every private build.
+regulatory approval, or uniform implementation of the proposed safeguards.
+Each design still requires implementation-specific threat modeling and tests.
 
 ## Status and rights
 
-The underlying builds are held privately. These public summaries are finished
-portfolio artifacts, not maintained products or deployment guides. See
-[LICENSE.md](LICENSE.md) and [SECURITY.md](SECURITY.md).
+These case studies are complete design analyses, not deployment guides or
+maintained software products. See [LICENSE.md](LICENSE.md) and
+[SECURITY.md](SECURITY.md).

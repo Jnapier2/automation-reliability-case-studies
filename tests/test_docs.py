@@ -35,12 +35,12 @@ class DocumentationTests(unittest.TestCase):
                     self.assertTrue(resolved == root or root in resolved.parents)
                     self.assertTrue(resolved.exists())
 
-    def test_readme_states_the_inventory_and_evidence_boundaries(self) -> None:
+    def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("## Publication boundary", readme)
-        self.assertIn("## Evidence boundary", readme)
-        self.assertIn("inventory-level", readme)
-        self.assertIn("does not claim", readme)
+        self.assertIn("## Scope and safety boundary", readme)
+        self.assertIn("## Evidence and limitations", readme)
+        self.assertIn("synthetic scenarios", readme)
+        self.assertIn("do not claim", readme)
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
 
 ## Case-study context
 
-Two private compute-automation builds supervised long-running workers on local
-hardware. Their public engineering value is the control-plane pattern: prove
+Two local compute-automation systems supervised long-running workers on local
+hardware. Their reusable engineering value is the control-plane pattern: prove
 which process belongs to the controller, judge health from fresh evidence, and
 limit recovery so the supervisor cannot become a restart loop.
 

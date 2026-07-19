@@ -2,9 +2,10 @@
 
 ## Case-study context
 
-A private video-transfer utility explored how a local client can recover from
+A local video-transfer utility provided the design context for recovering from
 slow or stalled network transfers while maintaining file integrity and operator
-control. This portfolio version presents the resilience design only.
+control. This case study focuses on the resilience design rather than an
+operational downloader.
 
 The system is described for media the operator owns or is explicitly permitted
 to retrieve. This document provides no downloader, extraction logic, service
