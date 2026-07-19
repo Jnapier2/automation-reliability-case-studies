@@ -1,0 +1,51 @@
+# Operating-system and editor artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*
+config.local.*
+
+# Runtime state, logs, and generated material
+*.log
+*.db
+*.sqlite*
+*.pid
+*.lock
+cache/
+logs/
+output/
+reports/
+state/
+tmp/
+
+# Executables, packages, and archives are outside this repository's scope
+*.exe
+*.dll
+*.msi
+*.zip
+*.7z
+*.tar
+*.gz
+
+# Language-specific generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+
