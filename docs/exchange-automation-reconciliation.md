@@ -2,14 +2,38 @@
 
 ## Case-study context
 
-Two private exchange-automation builds handled opposite sides of an order
-lifecycle. Their useful shared lesson was not a market tactic; it was how to
-avoid duplicating a financial action when a remote write times out or returns an
-uncertain result.
+Two private event-contract exchange builds supplied detailed context for
+opposite sides of an order lifecycle. Seven additional private build records
+span Coinbase, Kraken, and Binance.US automation environments. Their useful
+public lesson is not a market tactic; it is how to reason about external state
+when a financial-system write times out or returns an uncertain result.
 
-This document uses a synthetic exchange and generic intents. It contains no
-live connectivity details, credentials, prices, quantities, instruments,
-selection rules, or strategy parameters.
+This document uses a synthetic exchange and generic intents. The reliability
+model is an assessment framework for the wider portfolio, not a claim that
+every private build implements every control. It contains no live connectivity
+details, credentials, prices, quantities, instruments, selection rules, or
+strategy parameters.
+
+## Cross-portfolio assessment lens
+
+The expanded inventory demonstrates experience across several financial
+automation environments while keeping their operational designs private. A
+single public assurance lens keeps the comparison useful without disclosing or
+implying venue-specific behavior.
+
+| Review dimension | Public-safe question |
+| --- | --- |
+| State authority | Which external observation is authoritative enough to close an intent? |
+| Commit uncertainty | How does the controller represent a write whose outcome cannot yet be proven? |
+| Ownership and concurrency | How are unrelated operator or controller actions kept from being misattributed? |
+| Restart recovery | Which durable evidence must survive a local interruption? |
+| Recovery limits | When must automated retry stop and defer to an operator? |
+| Auditability | Can a reviewer reconstruct the evidence and reason for each decision? |
+
+These questions are applicable to all nine exchange-related records in the
+private inventory. Only the original event-contract pair supplies the detailed
+lifecycle basis for this case study; the other seven records are represented at
+inventory level and are not used to make implementation or performance claims.
 
 ## Reliability problem
 
@@ -114,4 +138,6 @@ that assert no ambiguous state can transition directly to a new write.
 This case study cannot connect to an exchange, authenticate, select a market,
 calculate an order, or execute a transaction. It is not financial advice or a
 deployment specification. Implementation details that could enable live use
-remain private.
+remain private. References to third-party platforms describe portfolio scope
+only and do not imply affiliation, endorsement, authorization, or verified live
+operation.

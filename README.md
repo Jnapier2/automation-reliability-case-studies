@@ -1,7 +1,9 @@
 # Automation Reliability Case Studies
 
-Architecture and assurance notes from five completed automation builds, edited
-into safe, non-operational portfolio case studies.
+Architecture and assurance notes from a private portfolio of twelve automation
+build records, edited into safe, non-operational case studies. Five builds
+support the detailed studies below; seven additional exchange-automation builds
+are represented through an inventory-level, synthetic reliability assessment.
 
 The original work explored a common engineering question: how should a local
 controller behave when the external system is slow, ambiguous, or partially
@@ -11,16 +13,18 @@ intentionally excluded.
 
 ## Portfolio scope
 
-| Original build | Public treatment | Engineering focus |
+| Private portfolio evidence | Public treatment | Supported public focus |
 | --- | --- | --- |
-| Kalshi Buy Bot | Consolidated case study | Ambiguous-write reconciliation and idempotent intent |
-| Kalshi Sell Bot | Consolidated case study | Exposure-safe state transitions and postcondition checks |
-| Alpha Monero Solo Miner | Consolidated case study | Identity-bound worker supervision and bounded recovery |
-| GPU Mining Alpha 5090 | Consolidated case study | Exact process ownership, health evidence, and escalation limits |
-| Vdownloader | Standalone case study | Authorized-media transfer resilience and hang detection |
+| Two event-contract exchange builds | Detailed consolidated case study | Ambiguous-write reconciliation, idempotent intent, and postcondition checks |
+| Seven digital-asset exchange builds spanning Coinbase, Kraken, and Binance.US environments | Synthetic cross-portfolio assessment | Reliability risks and review questions that apply across remote financial systems |
+| Two local compute-worker builds | Detailed consolidated case study | Identity-bound supervision, health evidence, and bounded recovery |
+| One authorized-media transfer build | Detailed standalone case study | Transfer resilience, integrity staging, and hang detection |
 
-Two pairs are intentionally consolidated because their strongest public value
-is the reliability pattern they share, not their operational configuration.
+Related builds are intentionally consolidated because their strongest public
+value is the reliability pattern they illuminate, not their operational
+configuration. The seven additional exchange records establish breadth of
+project experience; they do not, by themselves, establish that every private
+implementation contains every safeguard described in the synthetic assessment.
 
 ## Case studies
 
@@ -39,14 +43,14 @@ flowchart LR
     F -- "No" --> G["Escalate without guessing"]
 ```
 
-## What this demonstrates
+## What the public analysis demonstrates
 
-- Controllers that distinguish an intended action from proof that it occurred
-- Recovery policies with explicit attempt, time, and authority boundaries
-- Process ownership tied to identity rather than a convenient executable name
-- Health decisions based on fresh evidence instead of process existence alone
-- Audit records designed to explain why an action was taken or withheld
-- Safety-first handling of uncertainty, including fail-closed stopping states
+- Separating an intended action from evidence that it occurred
+- Defining recovery policies with attempt, time, and authority boundaries
+- Tying process ownership to identity rather than an executable name alone
+- Basing health decisions on fresh evidence instead of process existence alone
+- Designing audit records to explain why an action was taken or withheld
+- Handling uncertainty with explicit, fail-closed stopping states
 
 ## Publication boundary
 
@@ -72,6 +76,16 @@ Each case study is organized around four questions:
 Validation is described through synthetic scenarios and invariants rather than
 live integrations. This makes the reasoning reviewable without exposing a
 usable operational system.
+
+## Evidence boundary
+
+This portfolio supports three narrow claims: the private inventory includes
+twelve automation build records; seven exchange-automation records concern
+Coinbase, Kraken, or Binance.US environments; and the published material
+demonstrates a structured reliability-review method. It does not claim
+production use, platform endorsement, profitability, trading performance,
+regulatory approval, or uniform implementation of the proposed safeguards
+across every private build.
 
 ## Status and rights
 
