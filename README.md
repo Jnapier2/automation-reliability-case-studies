@@ -9,9 +9,8 @@ actions, runaway retries, and decisions that cannot be reconstructed after the
 fact. The scenarios are synthetic, and the repository contains no deployable
 integrations.
 
-Across the three studies, a retry is treated as a new decision, not a default
-response. The controller first reconciles external state, then acts only when
-the prior outcome is known and a safe action remains.
+Before retrying, each controller reconciles external state to establish what
+happened and whether a safe action remains.
 
 ## Study map
 
