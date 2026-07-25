@@ -93,3 +93,7 @@ implementation-specific threat modeling and tests.
 These case studies are design analyses, not deployment guides or maintained
 software products. See [LICENSE.md](LICENSE.md) and
 [SECURITY.md](SECURITY.md).
+
+[Portfolio](https://jerry-napier-portfolio.netlify.app/) · [GitHub profile](https://github.com/Jnapier2)
+
+Copyright © 2026 Gateway Information Group LLC. All rights reserved.
