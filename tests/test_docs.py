@@ -7,12 +7,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
-SHOWCASE_DOCS = (
-    ROOT / "docs" / "gpu-mining-readiness.md",
-    ROOT / "docs" / "crypto-spread-bot-reliability.md",
-    ROOT / "docs" / "prediction-market-data-quality.md",
-    ROOT / "docs" / "local-network-guard-evidence.md",
-)
+SHOWCASE_PROVENANCE = {
+    ROOT / "docs" / "gpu-mining-readiness.md": ("working/save-state",),
+    ROOT / "docs" / "crypto-spread-bot-reliability.md": ("working/save-state",),
+    ROOT / "docs" / "prediction-market-data-quality.md": ("working/save-state",),
+    ROOT / "docs" / "prediction-market-save-state-reconciliation.md": ("working/save-state",),
+    ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
+    ROOT / "docs" / "release-acceptance-fail-closed.md": (
+        "save-state candidate",
+        "failed closed",
+    ),
+}
 SENSITIVE_PATTERNS = {
     "personal_windows_path": re.compile(r"[A-Za-z]:\\Users\\", re.IGNORECASE),
     "openai_key": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b"),
@@ -29,6 +34,10 @@ SENSITIVE_PATTERNS = {
         r"(?<![\d.])(?:25[0-5]|2[0-4]\d|1?\d?\d)"
         r"(?:\.(?:25[0-5]|2[0-4]\d|1?\d?\d)){3}(?![\d.])"
     ),
+    "private_drive_url": re.compile(
+        r"https://(?:drive|docs)\.google\.com/", re.IGNORECASE
+    ),
+    "private_digest": re.compile(r"\b[a-fA-F0-9]{64}\b"),
 }
 
 
@@ -38,7 +47,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 10)
+        self.assertGreaterEqual(len(files), 12)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -60,12 +69,14 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("Nine engineering analyses", readme)
+        self.assertIn("Six named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
         self.assertIn("synthetic scenarios", readme)
         self.assertIn("do not claim", readme)
-        for path in SHOWCASE_DOCS:
+        for path in SHOWCASE_PROVENANCE:
             self.assertIn(f"docs/{path.name}", readme)
 
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
@@ -77,18 +88,19 @@ class DocumentationTests(unittest.TestCase):
             "## Public boundary",
             "## Limitations",
         )
-        for path in SHOWCASE_DOCS:
+        for path, provenance_markers in SHOWCASE_PROVENANCE.items():
             with self.subTest(path=path.relative_to(ROOT)):
                 self.assertTrue(path.is_file())
                 text = path.read_text(encoding="utf-8")
+                lower = text.lower()
                 for heading in required_headings:
                     self.assertIn(heading, text)
-                self.assertIn("working/save-state", text)
-                self.assertIn("synthetic", text.lower())
-                self.assertRegex(text.lower(), r"\bcannot\b")
+                self.assertTrue(any(marker in lower for marker in provenance_markers))
+                self.assertIn("synthetic", lower)
+                self.assertRegex(lower, r"\bcannot\b")
 
     def test_named_showcases_contain_no_sensitive_or_operational_residue(self) -> None:
-        for path in SHOWCASE_DOCS:
+        for path in SHOWCASE_PROVENANCE:
             text = path.read_text(encoding="utf-8")
             for label, pattern in SENSITIVE_PATTERNS.items():
                 with self.subTest(path=path.relative_to(ROOT), pattern=label):
