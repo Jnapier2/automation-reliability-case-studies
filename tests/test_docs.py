@@ -87,9 +87,10 @@ class DocumentationTests(unittest.TestCase):
             self.assertIn(f"docs/{path.name}", readme)
 
     def test_media_restart_reconciles_the_published_destination(self) -> None:
-        text = (
+        raw = (
             ROOT / "docs" / "authorized-media-transfer-resilience.md"
         ).read_text(encoding="utf-8").lower()
+        text = " ".join(raw.split())
         required = (
             "deterministic destination identity",
             "durable publication receipt",
