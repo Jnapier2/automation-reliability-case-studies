@@ -86,6 +86,20 @@ class DocumentationTests(unittest.TestCase):
         for path in SHOWCASE_PROVENANCE:
             self.assertIn(f"docs/{path.name}", readme)
 
+    def test_media_restart_reconciles_the_published_destination(self) -> None:
+        text = (
+            ROOT / "docs" / "authorized-media-transfer-resilience.md"
+        ).read_text(encoding="utf-8").lower()
+        required = (
+            "deterministic destination identity",
+            "durable publication receipt",
+            "before relaunching another worker",
+            "destination and receipt already agree",
+            "at most one published result",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
+
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
         required_headings = (
             "## Evidence source",
