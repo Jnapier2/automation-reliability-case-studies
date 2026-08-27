@@ -63,6 +63,7 @@ stateDiagram-v2
     Recovering --> Reconciling: retry or restart requested
     Reconciling --> Published: destination and receipt already agree
     Reconciling --> Queued: no prior publication and safe retry remains
+    Reconciling --> LatchedStop: retry budget exhausted
     Reconciling --> LatchedStop: ownership or publication state is ambiguous
     Validating --> Publishing: signature and staging checks pass
     Validating --> Quarantined: output is incomplete or inconsistent
@@ -80,6 +81,7 @@ stateDiagram-v2
 | Staged bytes grow slowly but consistently | Preserve the worker and avoid a false timeout |
 | Controller restarts with unfinished queue items | Reconcile durable intent, staging, deterministic destination identity, and publication receipt before launching another worker |
 | Process crashes after the destination is published but before queue completion is recorded | Verify the destination against the durable publication receipt, adopt it as complete, and do not relaunch or create a second copy |
+| Retry or elapsed-time budget expires with no prior publication | Transition to `LatchedStop` and require operator review rather than starting another attempt |
 | Destination exists but no valid receipt or deterministic identity can prove ownership | Latch safe and require operator review instead of guessing or overwriting |
 | Two workers claim the same item | Preserve one verified owner and stop the conflicting attempt |
 | Output extension looks valid but the signature does not | Quarantine the staged file and report an integrity failure |
@@ -93,14 +95,15 @@ A reviewable record contains queue-item identity, authorization classification,
 worker creation evidence, heartbeat freshness, progress freshness, attempt
 budget, staged-output state, validation result, deterministic destination
 identity, publication receipt, destination verification, operator cancellation
-state, and the reason the controller published, adopted an existing publication,
-retried, quarantined, or stopped.
+state, exhausted-budget state, and the reason the controller published, adopted
+an existing publication, retried, quarantined, or stopped.
 
 A public demonstration can use a synthetic local source that delays, truncates,
 disconnects, repeats data, ignores cancellation, or crashes at each publication
 boundary. It should prove that each durable intent produces at most one published
 result, including when a crash occurs after destination publication but before
-queue completion, and that incomplete outputs remain private.
+queue completion, that an exhausted budget always reaches a stopping state, and
+that incomplete outputs remain private.
 
 ## Public boundary
 
@@ -119,7 +122,7 @@ This case study does not claim compatibility with any external service,
 production safety, transfer performance, legal permission for a particular
 source, or implementation parity with every private-project feature. Any
 operational downloader still requires source-specific legal review, dependency
-validation, native Windows testing, endpoint-protection review, crash-window
-and filesystem-durability testing, and exact package acceptance.
+validation, native Windows testing, endpoint-protection review, crash-window,
+retry-budget and filesystem-durability testing, and exact package acceptance.
 
 Copyright © 2026 Gateway Information Group LLC. All rights reserved.

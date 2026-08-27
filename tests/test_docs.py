@@ -97,6 +97,8 @@ class DocumentationTests(unittest.TestCase):
             "before relaunching another worker",
             "destination and receipt already agree",
             "at most one published result",
+            "retry budget exhausted",
+            "budget expires with no prior publication",
         )
         for marker in required:
             self.assertIn(marker, text)
