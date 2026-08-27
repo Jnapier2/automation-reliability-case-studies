@@ -8,11 +8,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 SHOWCASE_PROVENANCE = {
+    ROOT / "docs" / "authorized-media-transfer-resilience.md": ("working/save-state",),
     ROOT / "docs" / "gpu-mining-readiness.md": ("working/save-state",),
     ROOT / "docs" / "crypto-spread-bot-reliability.md": ("working/save-state",),
     ROOT / "docs" / "prediction-market-data-quality.md": ("working/save-state",),
     ROOT / "docs" / "prediction-market-save-state-reconciliation.md": ("working/save-state",),
+    ROOT / "docs" / "prediction-market-structural-parity.md": (
+        "folder-declared working save state",
+    ),
     ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
+    ROOT / "docs" / "windows-repair-remediation-governance.md": (
+        "working/save-state",
+    ),
     ROOT / "docs" / "release-acceptance-fail-closed.md": (
         "save-state candidate",
         "failed closed",
@@ -47,7 +54,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 12)
+        self.assertGreaterEqual(len(files), 14)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -69,8 +76,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Nine engineering analyses", readme)
-        self.assertIn("Six named showcase studies", readme)
+        self.assertIn("Eleven engineering analyses", readme)
+        self.assertIn("Nine named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
