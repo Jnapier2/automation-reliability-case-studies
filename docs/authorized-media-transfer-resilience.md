@@ -1,132 +1,109 @@
-# Authorized-Media Transfer Resilience and Watchdogs
+# Recoverable Authorized-Media Queue Delivery
 
-## Case-study context
+## Evidence source
 
-A local video-transfer utility provided the design context for recovering from
-slow or stalled network transfers while maintaining file integrity and operator
-control. This case study focuses on the resilience design rather than an
-operational downloader.
+This public case study is informed by the user-confirmed working/save-state
+lineage of **Vdownloader Video-Only v6.12.18**. The private evidence records a
+stable canonical launcher, project-local outputs, runtime-identity checks, a
+ready startup state, and a bounded support export that passed archive integrity
+validation.
 
-The system is described for media the operator owns or is explicitly permitted
-to retrieve. This document provides no downloader, extraction logic, service
-endpoint, bypass technique, authentication method, launch command, or copied
-media.
+Those facts establish that the private project reached a reviewed operating
+state. They do not make its package, site-specific behavior, configuration,
+download history, or private evidence public.
 
-## Reliability problem
+## Showcase objective
 
-Network activity can continue without useful progress, and a stalled transfer
-can look superficially alive. Retrying too aggressively wastes bandwidth and
-may create duplicate or corrupted output. A safe controller needs independent
-progress observation, conservative retry classification, and atomic publication
-of validated files.
+The engineering problem is how to execute a recoverable queue of authorized
+media transfers without presenting partial files as complete, losing operator
+intent after a restart, or turning one stalled worker into an unbounded retry
+loop.
+
+The public design separates five questions:
+
+1. Is the requested source inside the authorized-use boundary?
+2. Is the queued intent durable and uniquely identifiable?
+3. Is the worker alive and making useful progress?
+4. Is the staged output structurally valid?
+5. Can the result be published once without overwriting unrelated data?
+
+## Reliability invariants
+
+- The queue is durable before a worker starts.
+- One queue item can own at most one active worker.
+- Heartbeat evidence and byte-progress evidence are evaluated separately.
+- A temporary file is never represented as a completed result.
+- Retries are bounded by attempt count, elapsed time, and failure class.
+- Restart recovery reconciles staged files and prior intent before starting new
+  work.
+- Relative destinations resolve from the project root rather than the caller's
+  working directory.
+- Existing destination files are preserved unless replacement is explicit.
+- Support evidence is bounded, redacted, project-local, and reviewable.
+- Authorization failure stops the intent rather than triggering a bypass path.
 
 ```mermaid
-sequenceDiagram
-    participant O as Operator
-    participant C as Transfer Controller
-    participant W as Isolated Worker
-    participant S as Authorized Source
-    participant F as Local Staging
-
-    O->>C: Submit authorized transfer intent
-    C->>W: Start isolated attempt
-    W->>S: Request content
-    W->>F: Stream to temporary file
-    loop Observation window
-        C->>W: Check heartbeat
-        C->>F: Check byte progress
-    end
-    alt Progress and validation succeed
-        C->>F: Atomically publish completed file
-        C-->>O: Report success with evidence
-    else Stall or integrity failure
-        C->>W: Request graceful stop
-        C->>C: Classify, back off, or latch stop
-        C-->>O: Report bounded outcome
-    end
+stateDiagram-v2
+    [*] --> Queued
+    Queued --> Starting: worker slot available
+    Starting --> Transferring: owned worker confirmed
+    Transferring --> Validating: stream closes normally
+    Transferring --> Suspect: heartbeat or progress evidence degrades
+    Suspect --> Transferring: useful progress resumes
+    Suspect --> Recovering: confirmed stall and budget remains
+    Recovering --> Queued: safe retry scheduled
+    Recovering --> LatchedStop: budget exhausted or ownership uncertain
+    Validating --> Published: signature and staging checks pass
+    Validating --> Quarantined: output is incomplete or inconsistent
+    Published --> [*]
+    Quarantined --> [*]
+    LatchedStop --> [*]
 ```
 
-## Watchdog design
+## Synthetic scenarios
 
-The controller observes the worker from outside its execution context. A
-heartbeat shows that control flow is responsive; file-size and timestamp
-changes show that useful transfer progress continues. Neither signal alone is
-sufficient.
+| Scenario | Required response |
+| --- | --- |
+| Worker heartbeat continues but staged bytes stop changing | Enter suspect state, confirm the stall, then apply bounded cancellation |
+| Staged bytes grow slowly but consistently | Preserve the worker and avoid a false timeout |
+| Controller restarts with unfinished queue items | Reconcile durable intent and staging before launching another worker |
+| Two workers claim the same item | Preserve one verified owner and stop the conflicting attempt |
+| Output extension looks valid but the signature does not | Quarantine the staged file and report an integrity failure |
+| Destination already contains a file with the requested name | Apply collision-safe naming or require explicit replacement |
+| Source rejects access | Stop without attempting to circumvent access controls |
+| Support export cannot safely include one item | Record the omission and preserve the remaining minimum recovery evidence |
 
-A stall is confirmed only after a policy-defined observation window and a
-second sample. The watchdog then requests graceful cancellation, waits for
-cleanup, and verifies the owned worker exited. Forced termination is a bounded
-last resort for the verified worker process only.
+## Audit evidence
 
-## Staging and integrity
+A reviewable record contains queue-item identity, authorization classification,
+worker creation evidence, heartbeat freshness, progress freshness, attempt
+budget, staged-output state, validation result, destination decision, operator
+cancellation state, and the reason the controller published, retried,
+quarantined, or stopped.
 
-Output remains under a temporary staging name until validation confirms:
+A public demonstration can use a synthetic local source that delays, truncates,
+disconnects, repeats data, or ignores cancellation. It should prove that each
+intent produces at most one published result and that incomplete outputs remain
+private.
 
-- Nonzero, stable size after the worker closes the file
-- Expected container signature rather than extension alone
-- Complete stream termination and no pending writer handle
-- Optional checksum agreement when an authoritative digest is available
-- Collision-safe destination naming
-- Atomic promotion from staging to final destination
+## Public boundary
 
-An interrupted or invalid file is never presented as complete. Existing files
-are not overwritten implicitly.
+This document contains no downloader source, executable, service endpoint,
+browser profile, authentication material, private configuration, download
+history, media file, site rule, bypass technique, launch command, private path,
+or support-export content. It cannot retrieve, transform, or publish media.
 
-## Retry classification
+The private Vdownloader package and its evidence remain owner-only. The public
+material is limited to queue, watchdog, staging, recovery, and audit design for
+lawful authorized use.
 
-| Classification | Example evidence | Controller response |
-| --- | --- | --- |
-| Transient | Connection reset with prior progress | Back off and resume or restart if policy allows |
-| Stalled | Heartbeat present but no byte progress | Cancel owned attempt, retain diagnostics, bounded retry |
-| Integrity failure | Final validation rejects staged file | Quarantine staging artifact; do not publish |
-| Authorization failure | Source denies access | Stop; do not attempt a bypass |
-| Unsupported source | Transfer contract cannot be established | Fail clearly and request a supported, authorized input |
-| Operator cancellation | Explicit local stop request | Stop promptly, clean staging safely, report partial state |
-| Repeated failure | Recovery budget exhausted | Latch stop and require a new operator decision |
+## Limitations
 
-## Safeguards
+This case study does not claim compatibility with any external service,
+production safety, transfer performance, legal permission for a particular
+source, or implementation parity with every private-project feature. Any
+operational downloader still requires source-specific legal review, dependency
+validation, native Windows testing, endpoint-protection review, and exact
+package acceptance.
 
-- Accept only operator-supplied, authorized sources.
-- Do not circumvent access controls, paywalls, authentication, or DRM.
-- Run each transfer attempt in an isolated, identity-bound worker.
-- Require both liveness and progress evidence.
-- Bound retries, total elapsed time, and forced-stop escalation.
-- Use temporary staging and atomic publication after validation.
-- Preserve existing destination files unless replacement is explicitly approved.
-- Redact query strings and sensitive headers from logs.
-- Keep cancellation responsive and report whether partial data was retained.
-- Separate user-facing outcomes from diagnostic detail.
-
-## Failure modes and responses
-
-| Failure mode | Risk | Safe response |
-| --- | --- | --- |
-| Worker alive but transfer stalled | Indefinite hang | Independent progress watchdog and bounded cancellation |
-| Partial file appears complete | User consumes corrupt output | Stage privately; publish only after validation |
-| Retry creates duplicates | Storage clutter or ambiguity | Stable intent identity and collision-safe naming |
-| Destination already exists | Accidental overwrite | Compare evidence and require explicit replacement policy |
-| Log captures a signed URL | Credential disclosure | Redact sensitive URL components before persistence |
-| Cancellation leaves worker | Resource leak | Verify owned process exit; bounded escalation |
-| Source denies access | Unauthorized workaround | Stop without bypass attempts |
-| Repeated transient failures | Retry storm | Backoff, persistent attempt budget, latched stop |
-
-## Validation approach
-
-Testing uses a synthetic local source that can delay, disconnect, truncate,
-misreport type, repeat content, and ignore cancellation. No third-party media is
-required. The validation matrix checks that:
-
-- Normal transfers publish exactly one validated output.
-- Slow but advancing transfers are not misclassified as stalled.
-- A confirmed stall triggers bounded cancellation and no final publication.
-- Truncated or type-mismatched content remains quarantined.
-- Repeated failures reach a persistent stop rather than an infinite loop.
-- Operator cancellation produces a prompt, auditable outcome.
-- Sensitive URL components never appear in persisted logs.
-- Existing destination files remain unchanged under collision scenarios.
-
-## Non-operational scope
-
-This case study cannot download or transform media. It includes no source code,
-commands, service-specific behavior, or bypass capability. It is an engineering
-review of transfer reliability for lawful, authorized use only.
+Copyright © 2026 Gateway Information Group LLC. All rights reserved.
