@@ -9,6 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 SHOWCASE_PROVENANCE = {
     ROOT / "docs" / "authorized-media-transfer-resilience.md": ("working/save-state",),
+    ROOT / "docs" / "data-contract-monitor-governance.md": (
+        "working/save-state",
+    ),
+    ROOT / "docs" / "data-governance-lineage-portal.md": (
+        "verified maintenance known-good",
+    ),
     ROOT / "docs" / "gpu-mining-readiness.md": ("working/save-state",),
     ROOT / "docs" / "crypto-spread-bot-reliability.md": ("working/save-state",),
     ROOT / "docs" / "prediction-market-data-quality.md": ("working/save-state",),
@@ -54,7 +60,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 14)
+        self.assertGreaterEqual(len(files), 17)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -76,8 +82,10 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Eleven engineering analyses", readme)
-        self.assertIn("Nine named showcase studies", readme)
+        self.assertIn("Thirteen engineering analyses", readme)
+        self.assertIn("Eleven named showcase studies", readme)
+        self.assertIn("## Professional Portfolio programs", readme)
+        self.assertIn("docs/professional-portfolio-programs.md", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
@@ -85,6 +93,24 @@ class DocumentationTests(unittest.TestCase):
         self.assertIn("do not claim", readme)
         for path in SHOWCASE_PROVENANCE:
             self.assertIn(f"docs/{path.name}", readme)
+
+    def test_professional_portfolio_overview_tracks_all_programs(self) -> None:
+        text = (
+            ROOT / "docs" / "professional-portfolio-programs.md"
+        ).read_text(encoding="utf-8").lower()
+        required = (
+            "data contract monitor",
+            "data governance & lineage portal",
+            "workflow and case management platform",
+            "policy and procedure navigator",
+            "pc reliability & incident intelligence suite",
+            "operations intelligence & automation platform",
+            "published studies",
+            "reviewed and deferred programs",
+            "public boundary",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
 
     def test_media_restart_reconciles_the_published_destination(self) -> None:
         raw = (
@@ -98,7 +124,7 @@ class DocumentationTests(unittest.TestCase):
             "destination and receipt already agree",
             "at most one published result",
             "retry budget exhausted",
-            "budget expires with no prior publication",
+            "ownership or publication state is ambiguous",
         )
         for marker in required:
             self.assertIn(marker, text)
