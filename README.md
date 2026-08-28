@@ -2,24 +2,34 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Eleven engineering analyses of controllers operating across unreliable system
+Thirteen engineering analyses of controllers operating across unreliable system
 boundaries. Each study shows how authoritative state, evidence requirements,
 bounded recovery, stopping conditions, and audit records can limit duplicate
-actions, runaway retries, unsafe remediation, and decisions that cannot be
-reconstructed after the fact.
+actions, runaway retries, unsafe remediation, corrupted data, and decisions that
+cannot be reconstructed after the fact.
 
-Nine named showcase studies are informed by verified working/save-state,
-folder-declared working-state, or fail-closed private projects: Vdownloader
-Video-Only, Gateway CKPool 5090 Miner, multi-exchange crypto spread bots,
-Kalshi Weather Ladder, Kalshi 1¢ Buy and 2¢ Sell automation, Kalshi Structural
-Parity Bot, Gateway AI Network Guard, PC Improve, and MUDD Game Development —
-Second Chances. Their public scenarios are synthetic and intentionally exclude
-deployable integrations, credentials, private configuration, live strategies,
-machine details, copyrighted game assets, repair commands, and operational
-packages.
+Eleven named showcase studies are informed by verified working/save-state,
+folder-declared working-state, or fail-closed private projects: Data Contract
+Monitor, Data Governance & Lineage Portal, Vdownloader Video-Only, Gateway
+CKPool 5090 Miner, multi-exchange crypto spread bots, Kalshi Weather Ladder,
+Kalshi 1¢ Buy and 2¢ Sell automation, Kalshi Structural Parity Bot, Gateway AI
+Network Guard, PC Improve, and MUDD Game Development — Second Chances. Their
+public scenarios are synthetic and intentionally exclude deployable
+integrations, credentials, private configuration, customer or employee data,
+live strategies, machine details, copyrighted game assets, repair commands, and
+operational packages.
 
 Before retrying or changing state, each controller reconciles authoritative
 evidence to establish what happened and whether a safe action remains.
+
+## Professional Portfolio programs
+
+The collection now includes a dedicated
+[Professional Portfolio program showcase](docs/professional-portfolio-programs.md).
+Two programs with accepted working/save-state evidence are published as
+sanitized studies; four additional portfolio programs are explicitly tracked as
+deferred until their package, native acceptance, and sanitization evidence is
+strong enough for a truthful public promotion.
 
 ## Study map
 
@@ -35,6 +45,8 @@ evidence to establish what happened and whether a safe action remains.
 | Prediction-market structural parity | Versioned local contracts and remote platform structure | Freshness, schema drift, lifecycle separation, and fail-closed dependency control |
 | Local network guard | Local telemetry and optional operator response | Read-only collection, evidence confidence, advisory labels, and reversible action boundaries |
 | Windows repair planning | Diagnostic evidence and approved system change | Read-only discovery, scoped approval, postcondition verification, and rollback |
+| Data contract monitor | Versioned contract and observed data | Freshness, drift classification, bounded enforcement, and migration evidence |
+| Data governance and lineage portal | Stable asset identity, provenance, lineage, and stewardship | Confidence, conflict visibility, reversible publication, and rollback |
 | Game release acceptance | Source, player, and handoff artifacts | Exact-artifact completeness, clean-extraction launch proof, and fail-closed promotion |
 
 ## Case studies
@@ -49,6 +61,8 @@ evidence to establish what happened and whether a safe action remains.
 - [Prediction-market structural parity under API drift](docs/prediction-market-structural-parity.md)
 - [Local network guard evidence and bounded response](docs/local-network-guard-evidence.md)
 - [Windows repair planning and reversible remediation](docs/windows-repair-remediation-governance.md)
+- [Data Contract Monitor: fail-closed contract drift governance](docs/data-contract-monitor-governance.md)
+- [Data Governance and Lineage Portal: reviewable provenance decisions](docs/data-governance-lineage-portal.md)
 - [Game release acceptance and fail-closed promotion](docs/release-acceptance-fail-closed.md)
 
 ```mermaid
@@ -72,6 +86,8 @@ flowchart LR
 - Preserving sealed-package authority when a field installation contains extra files
 - Keeping dry-run planning and live planning on one reviewable decision path
 - Making optional-data degradation visible rather than silently substituting it
+- Versioning data contracts instead of rewriting authority from one observation
+- Preserving stable asset identity when names, provenance, or lineage conflict
 - Preserving independent computer operation without ownership or lease gates
 - Requiring approval and verified postconditions before a repair is called successful
 - Designing audit records to explain why an action was taken or withheld
@@ -84,16 +100,20 @@ This repository is documentation only. It does **not** include source code,
 executables, operational commands, service endpoints, authentication flows,
 credentials, trading prices or quantities, strategy parameters, wallet or pool
 configuration, mining settings, local network identifiers, firewall rules,
-repair commands, launchers, private filesystem paths, copyrighted game assets,
+repair commands, launchers, private filesystem paths, private catalogs,
+customer or employee data, production data contracts, copyrighted game assets,
 or third-party media.
 
 The exchange and prediction-market material is not financial advice and cannot
 place or manage an order. The mining material cannot start, configure, tune, or
 stop a miner. The network-guard material cannot scan a real network or apply a
 containment action. The media material cannot retrieve content. The repair
-material cannot modify a computer. The release-acceptance material cannot build
-or distribute the private game. Any future implementation must undergo its own
-legal, security, safety, rights, and platform-policy review.
+material cannot modify a computer. The contract-monitor material cannot inspect
+private data or enforce a production contract. The governance-and-lineage
+material cannot read a private catalog or publish metadata. The
+release-acceptance material cannot build or distribute the private game. Any
+future implementation must undergo its own legal, security, safety, privacy,
+rights, and platform-policy review.
 
 ## Review method
 
@@ -115,7 +135,8 @@ working/save-state, folder-declared working-state, or fail-closed classification
 version lineage, verification class, and reusable reliability lessons. They
 exclude package bytes, private hashes, Drive identifiers, user paths, local
 addresses, wallets, credentials, order details, strategy thresholds, pool
-settings, tuning values, copyrighted game assets, repair commands, and security
+settings, tuning values, private datasets, customer or employee records,
+production contracts, copyrighted game assets, repair commands, and security
 exceptions.
 
 Automated checks require every named showcase to state its evidence source and
@@ -130,8 +151,9 @@ python -m unittest discover -s tests -v
 ```
 
 The checks enforce strict UTF-8, resolve every local Markdown link, verify the
-stated scope and evidence boundaries, and scan the named showcases for sensitive
-or operational residue.
+stated scope and evidence boundaries, verify the Professional Portfolio
+publication ledger, and scan the named showcases for sensitive or operational
+residue.
 
 ## Evidence and limitations
 
@@ -142,9 +164,10 @@ does not prove that every proposed control is implemented exactly as described.
 
 These studies do not claim production safety, platform endorsement,
 profitability, trading performance, mining performance, repair effectiveness,
-regulatory approval, security certification, successful game acceptance, or
-implementation of the proposed safeguards in any external system. Each design
-still requires implementation-specific threat modeling and tests.
+data-quality completeness, governance certification, regulatory approval,
+security certification, successful game acceptance, or implementation of the
+proposed safeguards in any external system. Each design still requires
+implementation-specific threat modeling and tests.
 
 ## Status and rights
 
