@@ -2,12 +2,14 @@
 
 ## Evidence source
 
-This public case study is informed by the current **Data Contract Monitor
-v0.1.5** public source and release, which passed release identity across 124
-managed files, 75 automated tests, Windows and Linux hosted validation, the real
-composite Action workflow, release construction, and CodeQL. The earlier private
-**v0.1.2** user-confirmed Windows working/save-state package remains a distinct
-field rollback rather than the current public source authority.
+**Current public source authority:** Data Contract Monitor v0.1.5. The public
+source and release passed release identity across 124 managed files, 75
+automated tests, Windows and Linux hosted validation, the real composite Action
+workflow, release construction, and CodeQL.
+
+**Private field rollback:** v0.1.2 user-confirmed Windows working/save-state
+package. It remains a distinct rollback and is not the current public source
+authority.
 
 That evidence supports the relevance of this study. It does not publish the
 private rollback package, contract definitions, production data, local paths,

@@ -12,9 +12,14 @@ boundary, and a reviewable explanation that does not expose private operations.
 
 The published study explains fail-closed contract drift governance: stable
 contract identity, independent rule evaluation, evidence quality, impact
-explanation, review state, and versioned change control. It is informed by an
-accepted working/save-state baseline while the private package and data remain
-owner-only.
+explanation, review state, and versioned change control.
+
+- **Current public source authority:** Data Contract Monitor v0.1.5, backed by
+  current public release, hosted validation, and security-analysis evidence.
+- **Private field rollback:** v0.1.2 user-confirmed Windows working/save-state
+  package, retained separately and not presented as the current public source.
+
+The private rollback package and private data remain owner-only.
 
 ### Data Governance & Lineage Portal
 

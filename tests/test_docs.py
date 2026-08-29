@@ -10,7 +10,10 @@ MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 SHOWCASE_PROVENANCE = {
     ROOT / "docs" / "authorized-media-transfer-resilience.md": ("working/save-state",),
     ROOT / "docs" / "data-contract-monitor-governance.md": (
-        "working/save-state",
+        "current public source authority",
+        "data contract monitor v0.1.5",
+        "private field rollback",
+        "v0.1.2 user-confirmed windows working/save-state",
     ),
     ROOT / "docs" / "data-governance-lineage-portal.md": (
         "verified maintenance known-good",
@@ -107,6 +110,10 @@ class DocumentationTests(unittest.TestCase):
             "operations intelligence & automation platform",
             "published studies",
             "reviewed and deferred programs",
+            "current public source authority",
+            "data contract monitor v0.1.5",
+            "private field rollback",
+            "v0.1.2 user-confirmed windows working/save-state",
             "public boundary",
         )
         for marker in required:
@@ -146,7 +153,8 @@ class DocumentationTests(unittest.TestCase):
                 lower = text.lower()
                 for heading in required_headings:
                     self.assertIn(heading, text)
-                self.assertTrue(any(marker in lower for marker in provenance_markers))
+                for marker in provenance_markers:
+                    self.assertIn(marker, lower)
                 self.assertIn("synthetic", lower)
                 self.assertRegex(lower, r"\bcannot\b")
 
