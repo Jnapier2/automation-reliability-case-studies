@@ -2,14 +2,16 @@
 
 ## Evidence source
 
-This public case study is informed by the **Data Contract Monitor v0.1.2**
-user-confirmed Windows working/save-state baseline. The private evidence records
-a launch-isolation repair, explicit release identity, project-local evidence,
-and successful Windows operation for the accepted package.
+This public case study is informed by the current **Data Contract Monitor
+v0.1.5** public source and release, which passed release identity across 124
+managed files, 75 automated tests, Windows and Linux hosted validation, the real
+composite Action workflow, release construction, and CodeQL. The earlier private
+**v0.1.2** user-confirmed Windows working/save-state package remains a distinct
+field rollback rather than the current public source authority.
 
 That evidence supports the relevance of this study. It does not publish the
-private package, contract definitions, production data, local paths, diagnostic
-records, or organization-specific policy.
+private rollback package, contract definitions, production data, local paths,
+diagnostic records, or organization-specific policy.
 
 ## Showcase objective
 
@@ -92,9 +94,10 @@ path, package digest, Drive identifier, or operational enforcement command. It
 cannot inspect a private source, change a production schema, quarantine real
 records, or approve a contract.
 
-The private working/save-state package and its evidence remain owner-only. The
-public material is limited to contract identity, drift classification, evidence
-quality, impact explanation, review state, and fail-closed decision design.
+The private working/save-state rollback package and its evidence remain
+owner-only. The public material is limited to contract identity, drift
+classification, evidence quality, impact explanation, review state, and
+fail-closed decision design.
 
 ## Limitations
 
