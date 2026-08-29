@@ -124,6 +124,7 @@ class DocumentationTests(unittest.TestCase):
             "destination and receipt already agree",
             "at most one published result",
             "retry budget exhausted",
+            "budget expires with no prior publication",
             "ownership or publication state is ambiguous",
         )
         for marker in required:
