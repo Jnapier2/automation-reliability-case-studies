@@ -92,6 +92,10 @@ CREDENTIAL_FIXTURES = {
 }
 
 
+def normalized_text(path: Path) -> str:
+    return " ".join(path.read_text(encoding="utf-8").split())
+
+
 class DocumentationTests(unittest.TestCase):
     def markdown_files(self) -> list[Path]:
         return sorted(ROOT.rglob("*.md"))
@@ -131,10 +135,9 @@ class DocumentationTests(unittest.TestCase):
             self.assertIn(f"docs/{path.name}", readme)
 
     def test_media_restart_reconciles_the_published_destination(self) -> None:
-        raw = (
+        text = normalized_text(
             ROOT / "docs" / "authorized-media-transfer-resilience.md"
-        ).read_text(encoding="utf-8").lower()
-        text = " ".join(raw.split())
+        ).lower()
         required = (
             "deterministic destination identity",
             "durable publication receipt",
@@ -148,10 +151,9 @@ class DocumentationTests(unittest.TestCase):
             self.assertIn(marker, text)
 
     def test_launcher_consolidation_has_one_authority(self) -> None:
-        raw = (
+        text = normalized_text(
             ROOT / "docs" / "media-tagger-one-active-launcher.md"
-        ).read_text(encoding="utf-8")
-        text = " ".join(raw.split())
+        )
         required = (
             "one canonical launcher",
             "one authoritative backend implementation",
@@ -164,9 +166,9 @@ class DocumentationTests(unittest.TestCase):
             self.assertIn(marker, text)
 
     def test_current_consolidation_evidence_is_qualified(self) -> None:
-        repair = (
+        repair = normalized_text(
             ROOT / "docs" / "windows-repair-remediation-governance.md"
-        ).read_text(encoding="utf-8")
+        )
         for marker in (
             "v55.33.0 consolidation candidate",
             "91 to 90 retained files",
@@ -177,9 +179,9 @@ class DocumentationTests(unittest.TestCase):
         ):
             self.assertIn(marker, repair)
 
-        crypto = (
+        crypto = normalized_text(
             ROOT / "docs" / "crypto-spread-bot-reliability.md"
-        ).read_text(encoding="utf-8")
+        )
         for marker in (
             "Binance.US Multi-Spread Bot R314",
             "R317 is a later one-capability, one-active-action candidate",
@@ -201,10 +203,10 @@ class DocumentationTests(unittest.TestCase):
         for path, provenance_markers in SHOWCASE_PROVENANCE.items():
             with self.subTest(path=path.relative_to(ROOT)):
                 self.assertTrue(path.is_file())
-                text = path.read_text(encoding="utf-8")
-                lower = text.lower()
+                raw = path.read_text(encoding="utf-8")
+                lower = " ".join(raw.lower().split())
                 for heading in required_headings:
-                    self.assertIn(heading, text)
+                    self.assertIn(heading, raw)
                 self.assertTrue(any(marker in lower for marker in provenance_markers))
                 self.assertIn("synthetic", lower)
                 self.assertRegex(lower, r"\bcannot\b")
