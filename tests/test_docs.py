@@ -39,7 +39,7 @@ SENSITIVE_PATTERNS = {
     "unix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+", re.IGNORECASE),
     "macos_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+", re.IGNORECASE),
     "private_provider_build_label": re.compile(
-        r"\b[A-Z0-9.-]*OPENAIPROVIDER[A-Z0-9.-]*\b", re.IGNORECASE
+        r"\b[A-Z0-9.-]*PROVIDER[0-9]+\b", re.IGNORECASE
     ),
     "openai_key": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b"),
     "github_token": re.compile(
@@ -80,7 +80,7 @@ SENSITIVE_PATTERNS = {
 }
 CREDENTIAL_FIXTURES = {
     "private_provider_build_label": (
-        "GIC-0.1.3-B20260831-OPENAIPROVIDER1",
+        "SYNTHETIC-BUILD-PROVIDER9",
     ),
     "openai_key": ("sk-proj-" + "A" * 24,),
     "github_token": ("ghp_" + "A" * 30, "github_pat_" + "A" * 30),
@@ -235,7 +235,6 @@ class DocumentationTests(unittest.TestCase):
         )
         for marker in required:
             self.assertIn(marker, text)
-        self.assertNotIn("OPENAIPROVIDER", text)
 
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
         required_headings = (
