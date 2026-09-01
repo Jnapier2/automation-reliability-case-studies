@@ -50,13 +50,17 @@ SENSITIVE_PATTERNS = {
         r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
     ),
     "operational_secret_assignment": re.compile(
-        r"(?i)\b(?:"
+        r"(?ix)\b(?:"
         r"api[_ -]?key|api[_ -]?secret|private[_ -]?key|wallet|pool|password|token|"
         r"aws[_ -]?(?:access[_ -]?key[_ -]?id|secret[_ -]?access[_ -]?key|session[_ -]?token)|"
         r"github[_ -]?token|gitlab[_ -]?token|openai[_ -]?api[_ -]?key|"
         r"slack[_ -]?(?:app[_ -]?token|bot[_ -]?token|user[_ -]?token)|"
         r"npm[_ -]?token|pypi[_ -]?token"
-        r")\b\s*[:=]\s*[\"']?[^\s\"']{8,}"
+        r")\b\s*[:=]\s*(?:"
+        r"\"(?:\\.|[^\"\r\n])+\"|"
+        r"'(?:\\.|[^'\r\n])+'|"
+        r"[^\s,;}\]\r\n]+"
+        r")"
     ),
     "raw_ipv4_address": re.compile(
         r"(?<![\d.])(?:25[0-5]|2[0-4]\d|1?\d?\d)"
@@ -89,6 +93,10 @@ CREDENTIAL_FIXTURES = {
     "operational_secret_assignment": (
         "AWS_SECRET_ACCESS_KEY=" + "A" * 40,
         "SLACK_APP_TOKEN=" + "A" * 24,
+        "password=hunter2",
+        "token=secret",
+        'password="my pass"',
+        "api_key='x'",
     ),
 }
 PRIVATE_PATH_FIXTURES = {
