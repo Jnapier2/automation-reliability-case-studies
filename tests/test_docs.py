@@ -25,7 +25,7 @@ SHOWCASE_PROVENANCE = {
     ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
     ROOT / "docs" / "gateway-intelligence-core-evidence.md": (
         "exact-archive-qualified windows test candidate",
-        "v0.1.2 as its rollback",
+        "v0.1.3 as its rollback",
     ),
     ROOT / "docs" / "windows-repair-remediation-governance.md": (
         "consolidation candidate",
@@ -227,15 +227,14 @@ class DocumentationTests(unittest.TestCase):
             ROOT / "docs" / "gateway-intelligence-core-evidence.md"
         )
         required = (
-            "Gateway Intelligence Core v0.1.3",
+            "Gateway Intelligence Core v0.1.4",
             "private package build label is intentionally omitted",
-            "89 of 89 source tests",
-            "89 of 89 exact-extract tests",
+            "91 of 91 source tests",
+            "91 of 91 exact-extract tests",
             "23 of 23 deterministic evaluations",
             "54 of 54 managed-identity checks",
-            "no-credential path failed safely without attempting a network request",
-            "17-item support export",
-            "Live Windows acceptance of the optional external-provider path remains pending",
+            "17 bounded items",
+            "Field acceptance remains open for Windows double-click launch",
             "automatic routines remain local",
             "artifact identities remain permanently distinct",
             "acceptance can change disposition and current authority, but never merge, overwrite, or relabel",
