@@ -33,6 +33,7 @@ SHOWCASE_PROVENANCE = {
 SENSITIVE_PATTERNS = {
     "personal_windows_path": re.compile(r"[A-Za-z]:\\Users\\", re.IGNORECASE),
     "unix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+", re.IGNORECASE),
+    "macos_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+", re.IGNORECASE),
     "openai_key": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b"),
     "github_token": re.compile(
         r"\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,})\b"
@@ -89,6 +90,11 @@ CREDENTIAL_FIXTURES = {
         "AWS_SECRET_ACCESS_KEY=" + "A" * 40,
         "SLACK_APP_TOKEN=" + "A" * 24,
     ),
+}
+PRIVATE_PATH_FIXTURES = {
+    "personal_windows_path": (r"C:\Users\example-user\private-project",),
+    "unix_home_path": ("/home/example-user/private-project",),
+    "macos_home_path": ("/Users/example-user/private-project",),
 }
 
 
@@ -216,6 +222,13 @@ class DocumentationTests(unittest.TestCase):
             pattern = SENSITIVE_PATTERNS[label]
             for value in values:
                 with self.subTest(pattern=label, value_prefix=value[:12]):
+                    self.assertIsNotNone(pattern.search(value))
+
+    def test_private_home_path_formats_are_detected(self) -> None:
+        for label, values in PRIVATE_PATH_FIXTURES.items():
+            pattern = SENSITIVE_PATTERNS[label]
+            for value in values:
+                with self.subTest(pattern=label, value=value):
                     self.assertIsNotNone(pattern.search(value))
 
     def test_named_showcases_contain_no_sensitive_or_operational_residue(self) -> None:
