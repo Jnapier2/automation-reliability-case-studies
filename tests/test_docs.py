@@ -21,6 +21,10 @@ SHOWCASE_PROVENANCE = {
         "folder-declared working save state",
     ),
     ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
+    ROOT / "docs" / "gateway-intelligence-core-evidence.md": (
+        "exact-archive-qualified windows test candidate",
+        "v0.1.2 as its rollback",
+    ),
     ROOT / "docs" / "windows-repair-remediation-governance.md": (
         "consolidation candidate",
         "accepted v55.29.4 working baseline",
@@ -116,7 +120,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 15)
+        self.assertGreaterEqual(len(files), 16)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -138,8 +142,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Twelve engineering analyses", readme)
-        self.assertIn("Ten named showcase studies", readme)
+        self.assertIn("Thirteen engineering analyses", readme)
+        self.assertIn("Eleven named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
@@ -204,6 +208,24 @@ class DocumentationTests(unittest.TestCase):
             "remains unpromoted",
         ):
             self.assertIn(marker, crypto)
+
+    def test_gateway_intelligence_core_preserves_local_first_boundary(self) -> None:
+        text = normalized_text(
+            ROOT / "docs" / "gateway-intelligence-core-evidence.md"
+        )
+        required = (
+            "Gateway Intelligence Core v0.1.3",
+            "89 of 89 source tests",
+            "89 of 89 exact-extract tests",
+            "23 of 23 deterministic evaluations",
+            "54 of 54 managed-identity checks",
+            "no-credential path failed safely without attempting a network request",
+            "17-item support export",
+            "Live Windows acceptance of the optional external-provider path remains pending",
+            "automatic routines remain local",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
 
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
         required_headings = (
