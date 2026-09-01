@@ -2,18 +2,23 @@
 
 ## Evidence source
 
-This public case study is informed by **Gateway Intelligence Core v0.1.3**, an
+This public case study is informed by **Gateway Intelligence Core v0.1.4**, an
 exact-archive-qualified Windows test candidate. The private package build label
 is intentionally omitted because it contains provider-selection detail. The
-reviewed package contains 56 archive entries and retains v0.1.2 as its rollback.
+reviewed package contains 56 archive entries and retains v0.1.3 as its rollback.
 
-Candidate qualification records 89 of 89 source tests, 89 of 89 exact-extract
+Candidate qualification records 91 of 91 source tests, 91 of 91 exact-extract
 tests, 23 of 23 deterministic evaluations, and 54 of 54 managed-identity checks
 passing. Required Doctor checks passed; the local self-scan reported ready,
-Green, and zero findings; the dashboard bootstrap passed; the no-credential
-path failed safely without attempting a network request; and a manual 17-item
-support export passed archive integrity. Live Windows acceptance of the optional
-external-provider path remains pending.
+Green, and zero findings; the dashboard bootstrap passed; and the acceptance
+support export contained 17 bounded items and passed archive integrity. The
+new candidate preserves the local-first and no-credential safety boundaries
+established by the earlier line.
+
+Field acceptance remains open for Windows double-click launch, normal
+Norton/SmartScreen observation of the exact final archive, one explicit live
+external-provider connectivity test on the user's Windows computer, and any
+optional local-provider validation that is later claimed.
 
 The private program, release package, provider configuration, prompts, local
 findings, machine context, and support evidence remain owner-only. This study
@@ -103,7 +108,7 @@ support export, private package digest, or operational configuration. It cannot
 inspect a real computer, authenticate to a provider, submit a paid request, or
 modify a system.
 
-The v0.1.3 candidate and v0.1.2 rollback remain owner-only and permanently
+The v0.1.4 candidate and v0.1.3 rollback remain owner-only and permanently
 separate identities. Public material is limited to package qualification,
 local-first operation, manual external-action admission, deterministic
 evaluation, redaction, and rollback design.
@@ -114,7 +119,8 @@ This is a reliability and governance case study, not a deployed diagnostics or
 security product. Provider behavior, billing, privacy terms, model quality,
 network failure, native Windows behavior, endpoint-protection reputation,
 accessibility, and real-world diagnostic accuracy require separate acceptance.
-The candidate is not promoted to known-good until the pending live Windows
-external-provider gate and other project-specific release checks are complete.
+The candidate is not promoted to known-good until the pending Windows launch,
+normal-protection, live external-provider, and other project-specific release
+checks are complete.
 
 Copyright © 2026 Gateway Information Group LLC. All rights reserved.
