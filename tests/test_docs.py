@@ -21,6 +21,10 @@ SHOWCASE_PROVENANCE = {
         "folder-declared working save state",
     ),
     ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
+    ROOT / "docs" / "gateway-intelligence-core-evidence.md": (
+        "exact-archive-qualified windows test candidate",
+        "v0.1.2 as its rollback",
+    ),
     ROOT / "docs" / "windows-repair-remediation-governance.md": (
         "consolidation candidate",
         "accepted v55.29.4 working baseline",
@@ -34,6 +38,9 @@ SENSITIVE_PATTERNS = {
     "personal_windows_path": re.compile(r"[A-Za-z]:\\Users\\", re.IGNORECASE),
     "unix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+", re.IGNORECASE),
     "macos_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+", re.IGNORECASE),
+    "private_provider_build_label": re.compile(
+        r"\b[A-Z0-9.-]*PROVIDER[0-9]+\b", re.IGNORECASE
+    ),
     "openai_key": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b"),
     "github_token": re.compile(
         r"\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,})\b"
@@ -72,6 +79,9 @@ SENSITIVE_PATTERNS = {
     "private_digest": re.compile(r"\b[a-fA-F0-9]{64}\b"),
 }
 CREDENTIAL_FIXTURES = {
+    "private_provider_build_label": (
+        "SYNTHETIC-BUILD-PROVIDER9",
+    ),
     "openai_key": ("sk-proj-" + "A" * 24,),
     "github_token": ("ghp_" + "A" * 30, "github_pat_" + "A" * 30),
     "gitlab_token": ("glpat-" + "A" * 24,),
@@ -116,7 +126,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 15)
+        self.assertGreaterEqual(len(files), 16)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -138,8 +148,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Twelve engineering analyses", readme)
-        self.assertIn("Ten named showcase studies", readme)
+        self.assertIn("Thirteen engineering analyses", readme)
+        self.assertIn("Eleven named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
@@ -204,6 +214,27 @@ class DocumentationTests(unittest.TestCase):
             "remains unpromoted",
         ):
             self.assertIn(marker, crypto)
+
+    def test_gateway_intelligence_core_preserves_local_first_boundary(self) -> None:
+        text = normalized_text(
+            ROOT / "docs" / "gateway-intelligence-core-evidence.md"
+        )
+        required = (
+            "Gateway Intelligence Core v0.1.3",
+            "private package build label is intentionally omitted",
+            "89 of 89 source tests",
+            "89 of 89 exact-extract tests",
+            "23 of 23 deterministic evaluations",
+            "54 of 54 managed-identity checks",
+            "no-credential path failed safely without attempting a network request",
+            "17-item support export",
+            "Live Windows acceptance of the optional external-provider path remains pending",
+            "automatic routines remain local",
+            "artifact identities remain permanently distinct",
+            "acceptance can change disposition and current authority, but never merge, overwrite, or relabel",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
 
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
         required_headings = (

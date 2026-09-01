@@ -2,21 +2,22 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Twelve engineering analyses of controllers operating across unreliable system
+Thirteen engineering analyses of controllers operating across unreliable system
 boundaries. Each study shows how authoritative state, evidence requirements,
 bounded recovery, stopping conditions, action-surface ownership, and audit
 records can limit duplicate actions, runaway retries, unsafe remediation, and
 decisions that cannot be reconstructed after the fact.
 
-Ten named showcase studies are informed by verified working/save-state,
+Eleven named showcase studies are informed by verified working/save-state,
 folder-declared working-state, release-candidate, or fail-closed private
 projects: Vdownloader Video-Only, MediaTaggerBot, Gateway CKPool 5090 Miner,
 multi-exchange crypto spread bots, Kalshi Weather Ladder, Kalshi 1¢ Buy and 2¢
-Sell automation, Kalshi Structural Parity Bot, Gateway AI Network Guard, PC
-Improve, and MUDD Game Development — Second Chances. Their public scenarios are
-synthetic and intentionally exclude deployable integrations, credentials,
-private configuration, live strategies, machine details, copyrighted game
-assets, repair commands, media libraries, and operational packages.
+Sell automation, Kalshi Structural Parity Bot, Gateway AI Network Guard,
+Gateway Intelligence Core, PC Improve, and MUDD Game Development — Second
+Chances. Their public scenarios are synthetic and intentionally exclude
+deployable integrations, credentials, private configuration, live strategies,
+machine details, copyrighted game assets, repair commands, media libraries,
+private prompts, and operational packages.
 
 Before retrying or changing state, each controller reconciles authoritative
 evidence to establish what happened, which implementation owns the action, and
@@ -36,6 +37,7 @@ whether a safe next step remains.
 | Prediction-market save-state reconciliation | Package, field installation, platform prerequisites, and exchange evidence | Sealed-package authority, correlation completeness, reversible cleanup, and performance-evidence limits |
 | Prediction-market structural parity | Versioned local contracts and remote platform structure | Freshness, schema drift, lifecycle separation, and fail-closed dependency control |
 | Local network guard | Local telemetry and optional operator response | Read-only collection, evidence confidence, advisory labels, and reversible action boundaries |
+| Gateway Intelligence Core | Local diagnostics, deterministic evaluation, dashboard state, and optional external reasoning | Local-first evidence, manual external-action admission, no-credential fail-safe, redaction, and rollback |
 | Windows repair planning | Diagnostic evidence, action registry, and approved system change | One action per capability, read-only discovery, scoped approval, verification, and rollback |
 | Game release acceptance | Source, player, and handoff artifacts | Exact-artifact completeness, clean-extraction launch proof, and fail-closed promotion |
 
@@ -51,6 +53,7 @@ whether a safe next step remains.
 - [Prediction-market save-state reconciliation](docs/prediction-market-save-state-reconciliation.md)
 - [Prediction-market structural parity under API drift](docs/prediction-market-structural-parity.md)
 - [Local network guard evidence and bounded response](docs/local-network-guard-evidence.md)
+- [Gateway Intelligence Core: local evidence triage and manual external-provider boundaries](docs/gateway-intelligence-core-evidence.md)
 - [Windows repair planning and reversible remediation](docs/windows-repair-remediation-governance.md)
 - [Game release acceptance and fail-closed promotion](docs/release-acceptance-fail-closed.md)
 
@@ -78,6 +81,7 @@ flowchart LR
 - Separating a healthy runtime from a degraded evidence or reporting surface
 - Preserving sealed-package authority when a field installation contains extra files
 - Keeping dry-run planning and live planning on one reviewable decision path
+- Keeping automatic diagnostics local when an external action requires explicit admission
 - Making optional-data degradation visible rather than silently substituting it
 - Preserving independent computer operation without ownership or lease gates
 - Requiring approval and verified postconditions before a repair is called successful
@@ -92,16 +96,18 @@ executables, operational commands, service endpoints, authentication flows,
 credentials, trading prices or quantities, strategy parameters, wallet or pool
 configuration, mining settings, local network identifiers, firewall rules,
 repair commands, launchers, private filesystem paths, media libraries,
-copyrighted game assets, or third-party media.
+private prompts, copyrighted game assets, or third-party media.
 
 The exchange and prediction-market material is not financial advice and cannot
 place or manage an order. The mining material cannot start, configure, tune, or
 stop a miner. The network-guard material cannot scan a real network or apply a
 containment action. The media-transfer material cannot retrieve content. The
 MediaTaggerBot material cannot inspect or rename a real media library. The
-repair material cannot modify a computer. The release-acceptance material
-cannot build or distribute the private game. Any future implementation must
-undergo its own legal, security, safety, rights, and platform-policy review.
+Gateway Intelligence Core material cannot inspect a real computer,
+authenticate to an external provider, or submit a paid request. The repair
+material cannot modify a computer. The release-acceptance material cannot build
+or distribute the private game. Any future implementation must undergo its own
+legal, security, safety, rights, and platform-policy review.
 
 ## Review method
 
@@ -124,12 +130,14 @@ fail-closed classification, version lineage, verification class, consolidation
 outcome, and reusable reliability lessons. They exclude package bytes, private
 hashes, Drive identifiers, user paths, local addresses, wallets, credentials,
 order details, strategy thresholds, pool settings, tuning values, private media
-names, copyrighted game assets, repair commands, and security exceptions.
+names, private prompts, provider request content, copyrighted game assets,
+repair commands, and security exceptions.
 
 Automated checks require every named showcase to state its evidence source and
 public boundary. They also reject common credential markers, private-key
-headers, personal Windows paths, raw network addresses, private Drive links,
-private package digests, and assignment-style operational secrets.
+headers, personal Windows, Linux, and macOS home paths, raw network addresses,
+private Drive links, private package digests, and assignment-style operational
+secrets.
 
 ## Validation
 
@@ -151,10 +159,10 @@ exactly as described.
 
 These studies do not claim production safety, platform endorsement,
 profitability, trading performance, mining performance, repair effectiveness,
-metadata accuracy, regulatory approval, security certification, successful
-game acceptance, or implementation of the proposed safeguards in any external
-system. Each design still requires implementation-specific threat modeling and
-tests.
+metadata accuracy, external-provider accuracy, regulatory approval, security
+certification, successful game acceptance, or implementation of the proposed
+safeguards in any external system. Each design still requires
+implementation-specific threat modeling and tests.
 
 ## Status and rights
 
