@@ -2,10 +2,10 @@
 
 ## Evidence source
 
-This public case study is informed by **Gateway Intelligence Core v0.1.3**, build
-`GIC-0.1.3-B20260831-OPENAIPROVIDER1`, an exact-archive-qualified Windows test
-candidate. The reviewed package contains 56 archive entries and retains v0.1.2
-as its rollback.
+This public case study is informed by **Gateway Intelligence Core v0.1.3**, an
+exact-archive-qualified Windows test candidate. The private package build label
+is intentionally omitted because it contains provider-selection detail. The
+reviewed package contains 56 archive entries and retains v0.1.2 as its rollback.
 
 Candidate qualification records 89 of 89 source tests, 89 of 89 exact-extract
 tests, 23 of 23 deterministic evaluations, and 54 of 54 managed-identity checks
@@ -50,8 +50,9 @@ support export into distinct states.
 - Credentials are read only through the approved runtime boundary and are never
   written to project files, diagnostics, or support exports.
 - Support export is read-only, redacted, project-local, and integrity-tested.
-- Candidate and rollback identities remain distinct until exact Windows and
-  normal-protection acceptance are complete.
+- Candidate and rollback artifact identities remain permanently distinct;
+  acceptance can change disposition and current authority, but never merge,
+  overwrite, or relabel either identity.
 
 ```mermaid
 flowchart TD
@@ -79,7 +80,7 @@ flowchart TD
 | An evaluation result changes after a package update | Record the versioned evaluation delta; do not overwrite the prior result |
 | A manual external request times out | Stop within the request budget and keep local operation available |
 | A support export is requested after an external response | Exclude credentials, private request content, and provider metadata not required for support |
-| The newer candidate has more features than the rollback | Preserve the rollback until native Windows and normal-protection acceptance pass |
+| The newer candidate passes every promotion gate | Change its disposition and current authority while preserving the rollback as a separate immutable identity |
 
 ## Audit evidence
 
@@ -95,15 +96,17 @@ mutate the evidence ledger, and the support export stays redacted and bounded.
 
 ## Public boundary
 
-This document contains no source archive, executable, credential, provider key,
-request or response content, private prompt, machine identifier, local path,
-network address, diagnostic finding, support export, private package digest, or
-operational configuration. It cannot inspect a real computer, authenticate to a
-provider, submit a paid request, or modify a system.
+This document contains no private build label, source archive, executable,
+credential, provider identity or key, request or response content, private
+prompt, machine identifier, local path, network address, diagnostic finding,
+support export, private package digest, or operational configuration. It cannot
+inspect a real computer, authenticate to a provider, submit a paid request, or
+modify a system.
 
-The v0.1.3 candidate and v0.1.2 rollback remain owner-only. Public material is
-limited to package qualification, local-first operation, manual external-action
-admission, deterministic evaluation, redaction, and rollback design.
+The v0.1.3 candidate and v0.1.2 rollback remain owner-only and permanently
+separate identities. Public material is limited to package qualification,
+local-first operation, manual external-action admission, deterministic
+evaluation, redaction, and rollback design.
 
 ## Limitations
 
