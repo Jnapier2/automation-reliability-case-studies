@@ -16,7 +16,7 @@ new candidate preserves the local-first and no-credential safety boundaries
 established by the earlier line.
 
 Field acceptance remains open for Windows double-click launch, normal
-Norton/SmartScreen observation of the exact final archive, one explicit live
+endpoint-protection observation of the exact final archive, one explicit live
 external-provider connectivity test on the user's Windows computer, and any
 optional local-provider validation that is later claimed.
 
