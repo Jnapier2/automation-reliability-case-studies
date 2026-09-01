@@ -7,6 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+BACKSLASH = chr(92)
+PRIVATE_KEY_MARKER = "-" * 5 + "BEGIN PRIVATE KEY" + "-" * 5
 SHOWCASE_PROVENANCE = {
     ROOT / "docs" / "authorized-media-transfer-resilience.md": ("working/save-state",),
     ROOT / "docs" / "media-tagger-one-active-launcher.md": (
@@ -35,7 +37,10 @@ SHOWCASE_PROVENANCE = {
     ),
 }
 SENSITIVE_PATTERNS = {
-    "personal_windows_path": re.compile(r"[A-Za-z]:\\Users\\", re.IGNORECASE),
+    "personal_windows_path": re.compile(
+        r"[A-Za-z]:" + re.escape(BACKSLASH) + r"Users" + re.escape(BACKSLASH),
+        re.IGNORECASE,
+    ),
     "unix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+", re.IGNORECASE),
     "macos_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+", re.IGNORECASE),
     "private_provider_build_label": re.compile(
@@ -54,7 +59,7 @@ SENSITIVE_PATTERNS = {
     "stripe_secret": re.compile(r"\b(?:sk|rk)_live_[A-Za-z0-9]{16,}\b"),
     "huggingface_token": re.compile(r"\bhf_[A-Za-z0-9]{20,}\b"),
     "private_key_header": re.compile(
-        r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
+        r"-{5}BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-{5}"
     ),
     "operational_secret_assignment": re.compile(
         r"(?ix)\b(?:"
@@ -99,7 +104,7 @@ CREDENTIAL_FIXTURES = {
     "pypi_token": ("pypi-" + "A" * 48,),
     "stripe_secret": ("sk_live_" + "A" * 24,),
     "huggingface_token": ("hf_" + "A" * 32,),
-    "private_key_header": ("-----BEGIN PRIVATE KEY-----",),
+    "private_key_header": (PRIVATE_KEY_MARKER,),
     "operational_secret_assignment": (
         "AWS_SECRET_ACCESS_KEY=" + "A" * 40,
         "SLACK_APP_TOKEN=" + "A" * 24,
@@ -110,7 +115,9 @@ CREDENTIAL_FIXTURES = {
     ),
 }
 PRIVATE_PATH_FIXTURES = {
-    "personal_windows_path": (r"C:\Users\example-user\private-project",),
+    "personal_windows_path": (
+        BACKSLASH.join(("C:", "Users", "example-user", "private-project")),
+    ),
     "unix_home_path": ("/home/example-user/private-project",),
     "macos_home_path": ("/Users/example-user/private-project",),
 }
