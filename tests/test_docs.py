@@ -38,6 +38,9 @@ SENSITIVE_PATTERNS = {
     "personal_windows_path": re.compile(r"[A-Za-z]:\\Users\\", re.IGNORECASE),
     "unix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+", re.IGNORECASE),
     "macos_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+", re.IGNORECASE),
+    "private_provider_build_label": re.compile(
+        r"\b[A-Z0-9.-]*OPENAIPROVIDER[A-Z0-9.-]*\b", re.IGNORECASE
+    ),
     "openai_key": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b"),
     "github_token": re.compile(
         r"\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,})\b"
@@ -76,6 +79,9 @@ SENSITIVE_PATTERNS = {
     "private_digest": re.compile(r"\b[a-fA-F0-9]{64}\b"),
 }
 CREDENTIAL_FIXTURES = {
+    "private_provider_build_label": (
+        "GIC-0.1.3-B20260831-OPENAIPROVIDER1",
+    ),
     "openai_key": ("sk-proj-" + "A" * 24,),
     "github_token": ("ghp_" + "A" * 30, "github_pat_" + "A" * 30),
     "gitlab_token": ("glpat-" + "A" * 24,),
@@ -215,6 +221,7 @@ class DocumentationTests(unittest.TestCase):
         )
         required = (
             "Gateway Intelligence Core v0.1.3",
+            "private package build label is intentionally omitted",
             "89 of 89 source tests",
             "89 of 89 exact-extract tests",
             "23 of 23 deterministic evaluations",
@@ -223,9 +230,12 @@ class DocumentationTests(unittest.TestCase):
             "17-item support export",
             "Live Windows acceptance of the optional external-provider path remains pending",
             "automatic routines remain local",
+            "artifact identities remain permanently distinct",
+            "acceptance can change disposition and current authority, but never merge, overwrite, or relabel",
         )
         for marker in required:
             self.assertIn(marker, text)
+        self.assertNotIn("OPENAIPROVIDER", text)
 
     def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
         required_headings = (
