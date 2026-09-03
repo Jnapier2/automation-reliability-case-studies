@@ -2,22 +2,23 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Thirteen engineering analyses of controllers operating across unreliable system
+Fourteen engineering analyses of controllers operating across unreliable system
 boundaries. Each study shows how authoritative state, evidence requirements,
 bounded recovery, stopping conditions, action-surface ownership, and audit
 records can limit duplicate actions, runaway retries, unsafe remediation, and
 decisions that cannot be reconstructed after the fact.
 
-Eleven named showcase studies are informed by verified working/save-state,
+Twelve named showcase studies are informed by verified working/save-state,
 folder-declared working-state, release-candidate, or fail-closed private
-projects: Vdownloader Video-Only, MediaTaggerBot, Gateway CKPool 5090 Miner,
-multi-exchange crypto spread bots, Kalshi Weather Ladder, Kalshi 1¢ Buy and 2¢
-Sell automation, Kalshi Structural Parity Bot, Gateway AI Network Guard,
-Gateway Intelligence Core, PC Improve, and MUDD Game Development — Second
-Chances. Their public scenarios are synthetic and intentionally exclude
+projects: Vdownloader Video-Only, MediaTaggerBot, BotOps Manager, Gateway CKPool
+5090 Miner, multi-exchange crypto spread bots, Kalshi Weather Ladder, Kalshi 1¢
+Buy and 2¢ Sell automation, Kalshi Structural Parity Bot, Gateway AI Network
+Guard, Gateway Intelligence Core, PC Improve, and MUDD Game Development —
+Second Chances. Their public scenarios are synthetic and intentionally exclude
 deployable integrations, credentials, private configuration, live strategies,
 machine details, copyrighted game assets, repair commands, media libraries,
-private prompts, and operational packages.
+private prompts, project registries, process identifiers, and operational
+packages.
 
 Before retrying or changing state, each controller reconciles authoritative
 evidence to establish what happened, which implementation owns the action, and
@@ -31,6 +32,7 @@ whether a safe next step remains.
 | Compute-worker supervision | Local process lifecycle | Identity-bound supervision, health evidence, and bounded recovery |
 | Recoverable authorized-media queue | Worker, queue, staging, and destination state | Durable intent, progress watchdogs, validation, and exactly-once publication |
 | MediaTaggerBot launcher consolidation | Launcher, action registry, rename plan, and media root | One active launcher, one backend per action, reviewable mutation, and rollback |
+| BotOps Manager control-plane cohesion | Discovery, registry, process identity, dashboard state, and operator actions | One observation authority, bounded ownership, stale-cache labeling, and safe support export |
 | GPU mining readiness | Local GPU worker and remote progress evidence | Package identity, evidence health, duplicate-launch prevention, and bounded recovery |
 | Multi-exchange crypto spread bots | Remote crypto exchange and command state | Freshness, fee-aware planning, one active action, ambiguous-write reconciliation, and inventory truth |
 | Prediction-market data quality | Forecast and exchange evidence | Degradation visibility, dry-run parity, exposure limits, and write separation |
@@ -47,6 +49,7 @@ whether a safe next step remains.
 - [Identity-bound compute-worker supervision](docs/compute-worker-supervision.md)
 - [Recoverable authorized-media queue delivery](docs/authorized-media-transfer-resilience.md)
 - [MediaTaggerBot: one active launcher and reviewable rename planning](docs/media-tagger-one-active-launcher.md)
+- [BotOps Manager: control-plane cohesion and bounded process authority](docs/botops-control-plane-cohesion.md)
 - [GPU mining readiness and bounded recovery](docs/gpu-mining-readiness.md)
 - [Multi-exchange crypto spread-bot reliability](docs/crypto-spread-bot-reliability.md)
 - [Prediction-market data quality and write guardrails](docs/prediction-market-data-quality.md)
@@ -75,6 +78,8 @@ flowchart LR
 - Keeping one canonical launcher and one authoritative backend per capability
 - Retaining compatibility names only when a current consumer or material
   boundary proves they are needed
+- Reusing one completed observation across registry, status, dashboard, and
+  governance views instead of creating conflicting scans
 - Defining recovery policies with attempt, time, authority, and rollback boundaries
 - Tying process ownership to identity rather than an executable name alone
 - Basing health decisions on fresh evidence instead of process existence alone
@@ -96,18 +101,20 @@ executables, operational commands, service endpoints, authentication flows,
 credentials, trading prices or quantities, strategy parameters, wallet or pool
 configuration, mining settings, local network identifiers, firewall rules,
 repair commands, launchers, private filesystem paths, media libraries,
-private prompts, copyrighted game assets, or third-party media.
+private prompts, project registries, process identifiers, copyrighted game
+assets, or third-party media.
 
 The exchange and prediction-market material is not financial advice and cannot
 place or manage an order. The mining material cannot start, configure, tune, or
 stop a miner. The network-guard material cannot scan a real network or apply a
 containment action. The media-transfer material cannot retrieve content. The
 MediaTaggerBot material cannot inspect or rename a real media library. The
-Gateway Intelligence Core material cannot inspect a real computer,
-authenticate to an external provider, or submit a paid request. The repair
-material cannot modify a computer. The release-acceptance material cannot build
-or distribute the private game. Any future implementation must undergo its own
-legal, security, safety, rights, and platform-policy review.
+BotOps Manager material cannot discover, launch, stop, restart, or modify a real
+project or process. The Gateway Intelligence Core material cannot inspect a real
+computer, authenticate to an external provider, or submit a paid request. The
+repair material cannot modify a computer. The release-acceptance material cannot
+build or distribute the private game. Any future implementation must undergo its
+own legal, security, safety, rights, and platform-policy review.
 
 ## Review method
 
@@ -130,8 +137,8 @@ fail-closed classification, version lineage, verification class, consolidation
 outcome, and reusable reliability lessons. They exclude package bytes, private
 hashes, Drive identifiers, user paths, local addresses, wallets, credentials,
 order details, strategy thresholds, pool settings, tuning values, private media
-names, private prompts, provider request content, copyrighted game assets,
-repair commands, and security exceptions.
+names, private prompts, provider request content, project registries, process
+identifiers, copyrighted game assets, repair commands, and security exceptions.
 
 Automated checks require every named showcase to state its evidence source and
 public boundary. They also reject common credential markers, private-key
@@ -158,11 +165,12 @@ package public and does not prove that every proposed control is implemented
 exactly as described.
 
 These studies do not claim production safety, platform endorsement,
-profitability, trading performance, mining performance, repair effectiveness,
-metadata accuracy, external-provider accuracy, regulatory approval, security
-certification, successful game acceptance, or implementation of the proposed
-safeguards in any external system. Each design still requires
-implementation-specific threat modeling and tests.
+profitability, trading performance, mining performance, process-control field
+acceptance, repair effectiveness, metadata accuracy, external-provider
+accuracy, regulatory approval, security certification, successful game
+acceptance, or implementation of the proposed safeguards in any external
+system. Each design still requires implementation-specific threat modeling and
+tests.
 
 ## Status and rights
 

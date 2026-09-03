@@ -15,6 +15,10 @@ SHOWCASE_PROVENANCE = {
         "release candidate",
         "v0.5.16 source baseline",
     ),
+    ROOT / "docs" / "botops-control-plane-cohesion.md": (
+        "windows scan-accepted foundation save state",
+        "confirmed control rollback",
+    ),
     ROOT / "docs" / "gpu-mining-readiness.md": ("working/save-state",),
     ROOT / "docs" / "crypto-spread-bot-reliability.md": ("working/save-state",),
     ROOT / "docs" / "prediction-market-data-quality.md": ("working/save-state",),
@@ -133,7 +137,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 16)
+        self.assertGreaterEqual(len(files), 17)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -155,8 +159,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Thirteen engineering analyses", readme)
-        self.assertIn("Eleven named showcase studies", readme)
+        self.assertIn("Fourteen engineering analyses", readme)
+        self.assertIn("Twelve named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
@@ -192,6 +196,27 @@ class DocumentationTests(unittest.TestCase):
             "unsupported-action result",
             "dry-run remains non-mutating",
             "does not promote v0.5.17",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
+
+    def test_botops_control_plane_preserves_authority_boundaries(self) -> None:
+        text = normalized_text(
+            ROOT / "docs" / "botops-control-plane-cohesion.md"
+        )
+        required = (
+            "v1.23.3 is the user-confirmed Windows control rollback baseline",
+            "v1.25.0 is the Windows scan-accepted foundation save state",
+            "31-versus-26 registry/dashboard evidence split",
+            "without introducing a second Windows process scan",
+            "252 source tests",
+            "same 252 tests from a fresh exact extraction",
+            "57 strict release-verifier checks",
+            "22 managed-identity checks",
+            "A cached dashboard count cannot overrule",
+            "persisted process identifier is never sufficient proof of ownership",
+            "full Windows preflight",
+            "one disposable low-risk verified child start/stop cycle",
         )
         for marker in required:
             self.assertIn(marker, text)
