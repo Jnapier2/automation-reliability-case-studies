@@ -128,9 +128,10 @@ state, v1.23.3 confirmed control rollback, and their evidence remain owner-only.
 This is a reliability and process-governance case study, not a released process
 manager. The current candidate still requires its exact full Windows preflight,
 one disposable low-risk verified child start/stop cycle, and normal endpoint-
-protection acceptance before it can replace the preserved control authorities.
-Real process enumeration, permissions, job objects, terminal behavior, child
-health contracts, and operating-system differences require implementation-
-specific testing.
+protection acceptance before it can replace v1.25.0 as the scan-accepted
+foundation or v1.23.3 as the confirmed control rollback. Real process
+enumeration, permissions, job objects, terminal behavior, child health
+contracts, and operating-system differences require implementation-specific
+testing.
 
 Copyright © 2026 Gateway Information Group LLC. All rights reserved.
