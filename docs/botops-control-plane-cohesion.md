@@ -5,7 +5,7 @@
 This public case study is informed by three separately preserved private BotOps
 Manager states:
 
-- **v1.23.3** is the user-confirmed Windows control rollback baseline.
+- v1.23.3 is the user-confirmed Windows control rollback baseline.
 - **v1.25.0** is the Windows scan-accepted foundation save state. Its field
   evidence records a successful live status scan across 31 registered projects,
   managed runtime identity, and healthy local database checks, while explicitly
