@@ -6,12 +6,12 @@ This public case study is informed by three separately preserved private BotOps
 Manager states:
 
 - v1.23.3 is the user-confirmed Windows control rollback baseline.
-- **v1.25.0** is the Windows scan-accepted foundation save state. Its field
+- v1.25.0 is the Windows scan-accepted foundation save state. Its field
   evidence records a successful live status scan across 31 registered projects,
   managed runtime identity, and healthy local database checks, while explicitly
   noting that a full live preflight and verified child start/stop cycle were not
   captured.
-- **v1.25.1**, build `BOTOPS-1.25.1-20260828-WINSYNC1`, is the current
+- v1.25.1, build `BOTOPS-1.25.1-20260828-WINSYNC1`, is the current
   synchronization and hardening candidate. It repairs a 31-versus-26
   registry/dashboard evidence split without introducing a second Windows
   process scan.
