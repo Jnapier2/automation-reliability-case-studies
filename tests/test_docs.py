@@ -277,7 +277,7 @@ class DocumentationTests(unittest.TestCase):
             "SageMath WSL Manager v1.3.2",
             "registered final package",
             "not rerun in the current portfolio review",
-            "one human entrypoint owns install, repair, launch, upgrade, status, and support routing",
+            "One human entrypoint owns install, repair, launch, upgrade, status, and support routing",
             "A registered package remains distinct from a freshly accepted Windows/Norton release",
             "moving upstream installer",
             "cannot enable WSL",
