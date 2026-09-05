@@ -2,23 +2,23 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Fourteen engineering analyses of controllers operating across unreliable system
+Fifteen engineering analyses of controllers operating across unreliable system
 boundaries. Each study shows how authoritative state, evidence requirements,
 bounded recovery, stopping conditions, action-surface ownership, and audit
 records can limit duplicate actions, runaway retries, unsafe remediation, and
 decisions that cannot be reconstructed after the fact.
 
-Twelve named showcase studies are informed by verified working/save-state,
-folder-declared working-state, release-candidate, or fail-closed private
-projects: Vdownloader Video-Only, MediaTaggerBot, BotOps Manager, Gateway CKPool
-5090 Miner, multi-exchange crypto spread bots, Kalshi Weather Ladder, Kalshi 1¢
-Buy and 2¢ Sell automation, Kalshi Structural Parity Bot, Gateway AI Network
-Guard, Gateway Intelligence Core, PC Improve, and MUDD Game Development —
-Second Chances. Their public scenarios are synthetic and intentionally exclude
-deployable integrations, credentials, private configuration, live strategies,
-machine details, copyrighted game assets, repair commands, media libraries,
-private prompts, project registries, process identifiers, and operational
-packages.
+Thirteen named showcase studies are informed by verified working/save-state,
+folder-declared working-state, registered final-package, release-candidate, or
+fail-closed private projects: Vdownloader Video-Only, MediaTaggerBot, BotOps
+Manager, Gateway CKPool 5090 Miner, multi-exchange crypto spread bots, Kalshi
+Weather Ladder, Kalshi 1¢ Buy and 2¢ Sell automation, Kalshi Structural Parity
+Bot, Gateway AI Network Guard, Gateway Intelligence Core, PC Improve, SageMath
+WSL Manager, and MUDD Game Development — Second Chances. Their public scenarios
+are synthetic and intentionally exclude deployable integrations, credentials,
+private configuration, live strategies, machine details, copyrighted game
+assets, repair commands, media libraries, private prompts, project registries,
+process identifiers, and operational packages.
 
 Before retrying or changing state, each controller reconciles authoritative
 evidence to establish what happened, which implementation owns the action, and
@@ -41,6 +41,7 @@ whether a safe next step remains.
 | Local network guard | Local telemetry and optional operator response | Read-only collection, evidence confidence, advisory labels, and reversible action boundaries |
 | Gateway Intelligence Core | Local diagnostics, deterministic evaluation, dashboard state, and optional external reasoning | Local-first evidence, manual external-action admission, no-credential fail-safe, redaction, and rollback |
 | Windows repair planning | Diagnostic evidence, action registry, and approved system change | One action per capability, read-only discovery, scoped approval, verification, and rollback |
+| SageMath WSL Manager | Windows capability, WSL lifecycle, Linux environment, package manager, and Sage self-test | Cross-boundary readiness, idempotent repair, bounded locking, reboot handoff, and diagnostic separation |
 | Game release acceptance | Source, player, and handoff artifacts | Exact-artifact completeness, clean-extraction launch proof, and fail-closed promotion |
 
 ## Case studies
@@ -58,6 +59,7 @@ whether a safe next step remains.
 - [Local network guard evidence and bounded response](docs/local-network-guard-evidence.md)
 - [Gateway Intelligence Core: local evidence triage and manual external-provider boundaries](docs/gateway-intelligence-core-evidence.md)
 - [Windows repair planning and reversible remediation](docs/windows-repair-remediation-governance.md)
+- [SageMath WSL Manager: cross-boundary installation and recovery](docs/sagemath-wsl-manager-recovery.md)
 - [Game release acceptance and fail-closed promotion](docs/release-acceptance-fail-closed.md)
 
 ```mermaid
@@ -90,6 +92,7 @@ flowchart LR
 - Making optional-data degradation visible rather than silently substituting it
 - Preserving independent computer operation without ownership or lease gates
 - Requiring approval and verified postconditions before a repair is called successful
+- Treating cross-boundary installers as a sequence of explicit readiness states rather than one opaque command
 - Designing audit records to explain why an action was taken or withheld
 - Requiring every release artifact before making a promotion claim
 - Handling uncertainty with explicit, fail-closed stopping states
@@ -112,9 +115,11 @@ MediaTaggerBot material cannot inspect or rename a real media library. The
 BotOps Manager material cannot discover, launch, stop, restart, or modify a real
 project or process. The Gateway Intelligence Core material cannot inspect a real
 computer, authenticate to an external provider, or submit a paid request. The
-repair material cannot modify a computer. The release-acceptance material cannot
-build or distribute the private game. Any future implementation must undergo its
-own legal, security, safety, rights, and platform-policy review.
+repair material cannot modify a computer. The SageMath WSL Manager material
+cannot enable WSL, install a Linux distribution, modify a shell profile, install
+SageMath, or change a real computer. The release-acceptance material cannot build
+or distribute the private game. Any future implementation must undergo its own
+legal, security, safety, rights, and platform-policy review.
 
 ## Review method
 
@@ -132,13 +137,14 @@ properties explicit.
 ## Sanitization method
 
 The named showcase studies retain only high-level provenance: project identity,
-working/save-state, folder-declared working-state, release-candidate, or
-fail-closed classification, version lineage, verification class, consolidation
-outcome, and reusable reliability lessons. They exclude package bytes, private
-hashes, Drive identifiers, user paths, local addresses, wallets, credentials,
-order details, strategy thresholds, pool settings, tuning values, private media
-names, private prompts, provider request content, project registries, process
-identifiers, copyrighted game assets, repair commands, and security exceptions.
+working/save-state, folder-declared working-state, registered final-package,
+release-candidate, or fail-closed classification, version lineage, verification
+class, consolidation outcome, and reusable reliability lessons. They exclude
+package bytes, private hashes, Drive identifiers, user paths, local addresses,
+wallets, credentials, order details, strategy thresholds, pool settings, tuning
+values, private media names, private prompts, provider request content, project
+registries, process identifiers, copyrighted game assets, repair commands, and
+security exceptions.
 
 Automated checks require every named showcase to state its evidence source and
 public boundary. They also reject common credential markers, private-key
@@ -159,24 +165,23 @@ or operational residue.
 ## Evidence and limitations
 
 The analyses use explicit invariants and synthetic failure scenarios. Working,
-save-state, folder-declared working-state, release-candidate, or fail-closed
-provenance supports the relevance of each study; it does not make the private
-package public and does not prove that every proposed control is implemented
-exactly as described.
+save-state, folder-declared working-state, registered final-package,
+release-candidate, or fail-closed provenance supports the relevance of each
+study; it does not make the private package public and does not prove that every
+proposed control is implemented exactly as described.
 
 These studies do not claim production safety, platform endorsement,
 profitability, trading performance, mining performance, process-control field
-acceptance, repair effectiveness, metadata accuracy, external-provider
-accuracy, regulatory approval, security certification, successful game
-acceptance, or implementation of the proposed safeguards in any external
-system. Each design still requires implementation-specific threat modeling and
-tests.
+acceptance, repair effectiveness, metadata accuracy, SageMath/WSL compatibility,
+external-provider accuracy, regulatory approval, security certification,
+successful game acceptance, or implementation of the proposed safeguards in any
+external system. Each design still requires implementation-specific threat
+modeling and tests.
 
 ## Status and rights
 
 These case studies are design analyses, not deployment guides or maintained
-software products. See [LICENSE.md](LICENSE.md) and
-[SECURITY.md](SECURITY.md).
+software products. See [LICENSE.md](LICENSE.md) and [SECURITY.md](SECURITY.md).
 
 [Portfolio](https://jerry-napier-portfolio.netlify.app/) · [GitHub profile](https://github.com/Jnapier2)
 
