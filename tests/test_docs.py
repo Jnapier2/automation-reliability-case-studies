@@ -35,6 +35,10 @@ SHOWCASE_PROVENANCE = {
         "consolidation candidate",
         "accepted v55.29.4 working baseline",
     ),
+    ROOT / "docs" / "sagemath-wsl-manager-recovery.md": (
+        "registered final package",
+        "not rerun in the current portfolio review",
+    ),
     ROOT / "docs" / "release-acceptance-fail-closed.md": (
         "save-state candidate",
         "failed closed",
@@ -88,9 +92,7 @@ SENSITIVE_PATTERNS = {
     "private_digest": re.compile(r"\b[a-fA-F0-9]{64}\b"),
 }
 CREDENTIAL_FIXTURES = {
-    "private_provider_build_label": (
-        "SYNTHETIC-BUILD-PROVIDER9",
-    ),
+    "private_provider_build_label": ("SYNTHETIC-BUILD-PROVIDER9",),
     "openai_key": ("sk-proj-" + "A" * 24,),
     "github_token": ("ghp_" + "A" * 30, "github_pat_" + "A" * 30),
     "gitlab_token": ("glpat-" + "A" * 24,),
@@ -137,7 +139,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_markdown_is_strict_utf8_without_nul_bytes(self) -> None:
         files = self.markdown_files()
-        self.assertGreaterEqual(len(files), 17)
+        self.assertGreaterEqual(len(files), 18)
         for path in files:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = path.read_bytes()
@@ -159,8 +161,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_readme_states_scope_and_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Fourteen engineering analyses", readme)
-        self.assertIn("Twelve named showcase studies", readme)
+        self.assertIn("Fifteen engineering analyses", readme)
+        self.assertIn("Thirteen named showcase studies", readme)
         self.assertIn("## Scope and safety boundary", readme)
         self.assertIn("## Sanitization method", readme)
         self.assertIn("## Evidence and limitations", readme)
@@ -263,6 +265,22 @@ class DocumentationTests(unittest.TestCase):
             "automatic routines remain local",
             "artifact identities remain permanently distinct",
             "acceptance can change disposition and current authority, but never merge, overwrite, or relabel",
+        )
+        for marker in required:
+            self.assertIn(marker, text)
+
+    def test_sagemath_study_preserves_registration_vs_acceptance(self) -> None:
+        text = normalized_text(
+            ROOT / "docs" / "sagemath-wsl-manager-recovery.md"
+        )
+        required = (
+            "SageMath WSL Manager v1.3.2",
+            "registered final package",
+            "not rerun in the current portfolio review",
+            "one human entrypoint owns install, repair, launch, upgrade, status, and support routing",
+            "A registered package remains distinct from a freshly accepted Windows/Norton release",
+            "moving upstream installer",
+            "cannot enable WSL",
         )
         for marker in required:
             self.assertIn(marker, text)
