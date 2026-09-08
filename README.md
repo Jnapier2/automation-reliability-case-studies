@@ -2,186 +2,45 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Fifteen engineering analyses of controllers operating across unreliable system
-boundaries. Each study shows how authoritative state, evidence requirements,
-bounded recovery, stopping conditions, action-surface ownership, and audit
-records can limit duplicate actions, runaway retries, unsafe remediation, and
-decisions that cannot be reconstructed after the fact.
+Fifteen short design analyses examine how incomplete evidence, interrupted work, and inconsistent system state affect reliability. The deliverables are the documents linked below. They are not fifteen released software products.
 
-Thirteen named showcase studies are informed by verified working/save-state,
-folder-declared working-state, registered final-package, release-candidate, or
-fail-closed private projects: Vdownloader Video-Only, MediaTaggerBot, BotOps
-Manager, Gateway CKPool 5090 Miner, multi-exchange crypto spread bots, Kalshi
-Weather Ladder, Kalshi 1¢ Buy and 2¢ Sell automation, Kalshi Structural Parity
-Bot, Gateway AI Network Guard, Gateway Intelligence Core, PC Improve, SageMath
-WSL Manager, and MUDD Game Development — Second Chances. Their public scenarios
-are synthetic and intentionally exclude deployable integrations, credentials,
-private configuration, live strategies, machine details, copyrighted game
-assets, repair commands, media libraries, private prompts, project registries,
-process identifiers, and operational packages.
+## Studies
 
-Before retrying or changing state, each controller reconciles authoritative
-evidence to establish what happened, which implementation owns the action, and
-whether a safe next step remains.
+- [Ambiguous transaction outcomes](docs/exchange-automation-reconciliation.md)
+- [Compute-worker health](docs/compute-worker-supervision.md)
+- [Interrupted media transfers](docs/authorized-media-transfer-resilience.md)
+- [Reviewable media organization](docs/media-tagger-one-active-launcher.md)
+- [Consistent operations views](docs/botops-control-plane-cohesion.md)
+- [Compute readiness and progress](docs/gpu-mining-readiness.md)
+- [Cross-system data consistency](docs/crypto-spread-bot-reliability.md)
+- [Decision-input quality](docs/prediction-market-data-quality.md)
+- [Version-specific evidence](docs/prediction-market-save-state-reconciliation.md)
+- [Changing external interfaces](docs/prediction-market-structural-parity.md)
+- [Diagnostic confidence](docs/local-network-guard-evidence.md)
+- [Evidence and interpretation](docs/gateway-intelligence-core-evidence.md)
+- [Evaluating remediation outcomes](docs/windows-repair-remediation-governance.md)
+- [Cross-platform readiness](docs/sagemath-wsl-manager-recovery.md)
+- [Deliverable completeness](docs/release-acceptance-fail-closed.md)
 
-## Study map
+## Evidence and limitations
 
-| Case study | System boundary | Reliability focus |
-| --- | --- | --- |
-| Ambiguous-write reconciliation | Remote exchange APIs | Idempotent intent, reconciliation, and postcondition checks |
-| Compute-worker supervision | Local process lifecycle | Identity-bound supervision, health evidence, and bounded recovery |
-| Recoverable authorized-media queue | Worker, queue, staging, and destination state | Durable intent, progress watchdogs, validation, and exactly-once publication |
-| MediaTaggerBot launcher consolidation | Launcher, action registry, rename plan, and media root | One active launcher, one backend per action, reviewable mutation, and rollback |
-| BotOps Manager control-plane cohesion | Discovery, registry, process identity, dashboard state, and operator actions | One observation authority, bounded ownership, stale-cache labeling, and safe support export |
-| GPU mining readiness | Local GPU worker and remote progress evidence | Package identity, evidence health, duplicate-launch prevention, and bounded recovery |
-| Multi-exchange crypto spread bots | Remote crypto exchange and command state | Freshness, fee-aware planning, one active action, ambiguous-write reconciliation, and inventory truth |
-| Prediction-market data quality | Forecast and exchange evidence | Degradation visibility, dry-run parity, exposure limits, and write separation |
-| Prediction-market save-state reconciliation | Package, field installation, platform prerequisites, and exchange evidence | Sealed-package authority, correlation completeness, reversible cleanup, and performance-evidence limits |
-| Prediction-market structural parity | Versioned local contracts and remote platform structure | Freshness, schema drift, lifecycle separation, and fail-closed dependency control |
-| Local network guard | Local telemetry and optional operator response | Read-only collection, evidence confidence, advisory labels, and reversible action boundaries |
-| Gateway Intelligence Core | Local diagnostics, deterministic evaluation, dashboard state, and optional external reasoning | Local-first evidence, manual external-action admission, no-credential fail-safe, redaction, and rollback |
-| Windows repair planning | Diagnostic evidence, action registry, and approved system change | One action per capability, read-only discovery, scoped approval, verification, and rollback |
-| SageMath WSL Manager | Windows capability, WSL lifecycle, Linux environment, package manager, and Sage self-test | Cross-boundary readiness, idempotent repair, bounded locking, reboot handoff, and diagnostic separation |
-| Game release acceptance | Source, player, and handoff artifacts | Exact-artifact completeness, clean-extraction launch proof, and fail-closed promotion |
+These studies discuss synthetic scenarios and general review concerns. They do not claim measured production outcomes or demonstrate executable integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove runtime behavior.
 
-## Case studies
+## Related runnable work
 
-- [Ambiguous-write reconciliation in exchange automation](docs/exchange-automation-reconciliation.md)
-- [Identity-bound compute-worker supervision](docs/compute-worker-supervision.md)
-- [Recoverable authorized-media queue delivery](docs/authorized-media-transfer-resilience.md)
-- [MediaTaggerBot: one active launcher and reviewable rename planning](docs/media-tagger-one-active-launcher.md)
-- [BotOps Manager: control-plane cohesion and bounded process authority](docs/botops-control-plane-cohesion.md)
-- [GPU mining readiness and bounded recovery](docs/gpu-mining-readiness.md)
-- [Multi-exchange crypto spread-bot reliability](docs/crypto-spread-bot-reliability.md)
-- [Prediction-market data quality and write guardrails](docs/prediction-market-data-quality.md)
-- [Prediction-market save-state reconciliation](docs/prediction-market-save-state-reconciliation.md)
-- [Prediction-market structural parity under API drift](docs/prediction-market-structural-parity.md)
-- [Local network guard evidence and bounded response](docs/local-network-guard-evidence.md)
-- [Gateway Intelligence Core: local evidence triage and manual external-provider boundaries](docs/gateway-intelligence-core-evidence.md)
-- [Windows repair planning and reversible remediation](docs/windows-repair-remediation-governance.md)
-- [SageMath WSL Manager: cross-boundary installation and recovery](docs/sagemath-wsl-manager-recovery.md)
-- [Game release acceptance and fail-closed promotion](docs/release-acceptance-fail-closed.md)
+- [BotOps Manager](https://github.com/Jnapier2/botops-manager)
+- [MediaTaggerBot](https://github.com/Jnapier2/media-tagger-bot)
+- [Digital Asset Governance Audit](https://github.com/Jnapier2/digital-asset-governance-case-study)
 
-```mermaid
-flowchart LR
-    A["Declare a bounded intent"] --> B["Resolve one authoritative action"]
-    B --> C["Observe authoritative evidence"]
-    C --> D{"Outcome certain?"}
-    D -- "Yes" --> E["Record evidence and stop"]
-    D -- "No" --> F["Reconcile before retry or change"]
-    F --> G{"Safe action remains?"}
-    G -- "Yes" --> C
-    G -- "No" --> H["Escalate without guessing"]
-```
+Each linked repository describes its own source, examples, tests, and limitations.
 
-## Engineering principles
-
-- Separating an intended action from evidence that it occurred
-- Keeping one canonical launcher and one authoritative backend per capability
-- Retaining compatibility names only when a current consumer or material
-  boundary proves they are needed
-- Reusing one completed observation across registry, status, dashboard, and
-  governance views instead of creating conflicting scans
-- Defining recovery policies with attempt, time, authority, and rollback boundaries
-- Tying process ownership to identity rather than an executable name alone
-- Basing health decisions on fresh evidence instead of process existence alone
-- Separating a healthy runtime from a degraded evidence or reporting surface
-- Preserving sealed-package authority when a field installation contains extra files
-- Keeping dry-run planning and live planning on one reviewable decision path
-- Keeping automatic diagnostics local when an external action requires explicit admission
-- Making optional-data degradation visible rather than silently substituting it
-- Preserving independent computer operation without ownership or lease gates
-- Requiring approval and verified postconditions before a repair is called successful
-- Treating cross-boundary installers as a sequence of explicit readiness states rather than one opaque command
-- Designing audit records to explain why an action was taken or withheld
-- Requiring every release artifact before making a promotion claim
-- Handling uncertainty with explicit, fail-closed stopping states
-
-## Scope and safety boundary
-
-This repository is documentation only. It does **not** include source code,
-executables, operational commands, service endpoints, authentication flows,
-credentials, trading prices or quantities, strategy parameters, wallet or pool
-configuration, mining settings, local network identifiers, firewall rules,
-repair commands, launchers, private filesystem paths, media libraries,
-private prompts, project registries, process identifiers, copyrighted game
-assets, or third-party media.
-
-The exchange and prediction-market material is not financial advice and cannot
-place or manage an order. The mining material cannot start, configure, tune, or
-stop a miner. The network-guard material cannot scan a real network or apply a
-containment action. The media-transfer material cannot retrieve content. The
-MediaTaggerBot material cannot inspect or rename a real media library. The
-BotOps Manager material cannot discover, launch, stop, restart, or modify a real
-project or process. The Gateway Intelligence Core material cannot inspect a real
-computer, authenticate to an external provider, or submit a paid request. The
-repair material cannot modify a computer. The SageMath WSL Manager material
-cannot enable WSL, install a Linux distribution, modify a shell profile, install
-SageMath, or change a real computer. The release-acceptance material cannot build
-or distribute the private game. Any future implementation must undergo its own
-legal, security, safety, rights, and platform-policy review.
-
-## Review method
-
-Each case study is organized around four questions:
-
-1. Which state and implementation are authoritative at each decision point?
-2. What evidence is required before the controller acts again?
-3. Which recovery or change actions are permitted, and when must they stop?
-4. How can an operator reconstruct the decision after the fact?
-
-Validation is described through synthetic scenarios and invariants rather than
-live integrations. This keeps the reasoning reproducible and the safety
-properties explicit.
-
-## Sanitization method
-
-The named showcase studies retain only high-level provenance: project identity,
-working/save-state, folder-declared working-state, registered final-package,
-release-candidate, or fail-closed classification, version lineage, verification
-class, consolidation outcome, and reusable reliability lessons. They exclude
-package bytes, private hashes, Drive identifiers, user paths, local addresses,
-wallets, credentials, order details, strategy thresholds, pool settings, tuning
-values, private media names, private prompts, provider request content, project
-registries, process identifiers, copyrighted game assets, repair commands, and
-security exceptions.
-
-Automated checks require every named showcase to state its evidence source and
-public boundary. They also reject common credential markers, private-key
-headers, personal Windows, Linux, and macOS home paths, raw network addresses,
-private Drive links, private package digests, and assignment-style operational
-secrets.
-
-## Validation
+## Documentation checks
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-The checks enforce strict UTF-8, resolve every local Markdown link, verify the
-stated scope and evidence boundaries, and scan the named showcases for sensitive
-or operational residue.
-
-## Evidence and limitations
-
-The analyses use explicit invariants and synthetic failure scenarios. Working,
-save-state, folder-declared working-state, registered final-package,
-release-candidate, or fail-closed provenance supports the relevance of each
-study; it does not make the private package public and does not prove that every
-proposed control is implemented exactly as described.
-
-These studies do not claim production safety, platform endorsement,
-profitability, trading performance, mining performance, process-control field
-acceptance, repair effectiveness, metadata accuracy, SageMath/WSL compatibility,
-external-provider accuracy, regulatory approval, security certification,
-successful game acceptance, or implementation of the proposed safeguards in any
-external system. Each design still requires implementation-specific threat
-modeling and tests.
-
-## Status and rights
-
-These case studies are design analyses, not deployment guides or maintained
-software products. See [LICENSE.md](LICENSE.md) and [SECURITY.md](SECURITY.md).
+See [LICENSE.md](LICENSE.md) and [SECURITY.md](SECURITY.md).
 
 [Portfolio](https://jerry-napier-portfolio.netlify.app/) · [GitHub profile](https://github.com/Jnapier2)
 
