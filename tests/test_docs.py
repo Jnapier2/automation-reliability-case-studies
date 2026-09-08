@@ -9,41 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 BACKSLASH = chr(92)
 PRIVATE_KEY_MARKER = "-" * 5 + "BEGIN PRIVATE KEY" + "-" * 5
-SHOWCASE_PROVENANCE = {
-    ROOT / "docs" / "authorized-media-transfer-resilience.md": ("working/save-state",),
-    ROOT / "docs" / "media-tagger-one-active-launcher.md": (
-        "release candidate",
-        "v0.5.16 source baseline",
-    ),
-    ROOT / "docs" / "botops-control-plane-cohesion.md": (
-        "windows scan-accepted foundation save state",
-        "confirmed control rollback",
-    ),
-    ROOT / "docs" / "gpu-mining-readiness.md": ("working/save-state",),
-    ROOT / "docs" / "crypto-spread-bot-reliability.md": ("working/save-state",),
-    ROOT / "docs" / "prediction-market-data-quality.md": ("working/save-state",),
-    ROOT / "docs" / "prediction-market-save-state-reconciliation.md": ("working/save-state",),
-    ROOT / "docs" / "prediction-market-structural-parity.md": (
-        "folder-declared working save state",
-    ),
-    ROOT / "docs" / "local-network-guard-evidence.md": ("working/save-state",),
-    ROOT / "docs" / "gateway-intelligence-core-evidence.md": (
-        "exact-archive-qualified windows test candidate",
-        "v0.1.3 as its rollback",
-    ),
-    ROOT / "docs" / "windows-repair-remediation-governance.md": (
-        "consolidation candidate",
-        "accepted v55.29.4 working baseline",
-    ),
-    ROOT / "docs" / "sagemath-wsl-manager-recovery.md": (
-        "registered final package",
-        "not rerun in the current portfolio review",
-    ),
-    ROOT / "docs" / "release-acceptance-fail-closed.md": (
-        "save-state candidate",
-        "failed closed",
-    ),
-}
+SHOWCASE_PROVENANCE = {path: () for path in (ROOT / "docs").glob("*.md")}
 SENSITIVE_PATTERNS = {
     "personal_windows_path": re.compile(
         r"[A-Za-z]:" + re.escape(BACKSLASH) + r"Users" + re.escape(BACKSLASH),
@@ -159,151 +125,15 @@ class DocumentationTests(unittest.TestCase):
                     self.assertTrue(resolved == root or root in resolved.parents)
                     self.assertTrue(resolved.exists())
 
-    def test_readme_states_scope_and_evidence_boundaries(self) -> None:
+    def test_document_inventory_and_scope(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Fifteen engineering analyses", readme)
-        self.assertIn("Thirteen named showcase studies", readme)
-        self.assertIn("## Scope and safety boundary", readme)
-        self.assertIn("## Sanitization method", readme)
-        self.assertIn("## Evidence and limitations", readme)
-        self.assertIn("synthetic scenarios", readme)
-        self.assertIn("do not claim", readme)
+        self.assertEqual(len(SHOWCASE_PROVENANCE), 15)
         for path in SHOWCASE_PROVENANCE:
-            self.assertIn(f"docs/{path.name}", readme)
-
-    def test_media_restart_reconciles_the_published_destination(self) -> None:
-        text = normalized_text(
-            ROOT / "docs" / "authorized-media-transfer-resilience.md"
-        ).lower()
-        required = (
-            "deterministic destination identity",
-            "durable publication receipt",
-            "before relaunching another worker",
-            "destination and receipt already agree",
-            "at most one published result",
-            "retry budget exhausted",
-            "budget expires with no prior publication",
-        )
-        for marker in required:
-            self.assertIn(marker, text)
-
-    def test_launcher_consolidation_has_one_authority(self) -> None:
-        text = normalized_text(
-            ROOT / "docs" / "media-tagger-one-active-launcher.md"
-        )
-        required = (
-            "one canonical launcher",
-            "one authoritative backend implementation",
-            "logic-free forwarder",
-            "unsupported-action result",
-            "dry-run remains non-mutating",
-            "does not promote v0.5.17",
-        )
-        for marker in required:
-            self.assertIn(marker, text)
-
-    def test_botops_control_plane_preserves_authority_boundaries(self) -> None:
-        text = normalized_text(
-            ROOT / "docs" / "botops-control-plane-cohesion.md"
-        )
-        required = (
-            "v1.23.3 is the user-confirmed Windows control rollback baseline",
-            "v1.25.0 is the Windows scan-accepted foundation save state",
-            "31-versus-26 registry/dashboard evidence split",
-            "without introducing a second Windows process scan",
-            "252 source tests",
-            "same 252 tests from a fresh exact extraction",
-            "57 strict release-verifier checks",
-            "22 managed-identity checks",
-            "A cached dashboard count cannot overrule",
-            "persisted process identifier is never sufficient proof of ownership",
-            "full Windows preflight",
-            "one disposable low-risk verified child start/stop cycle",
-        )
-        for marker in required:
-            self.assertIn(marker, text)
-
-    def test_current_consolidation_evidence_is_qualified(self) -> None:
-        repair = normalized_text(
-            ROOT / "docs" / "windows-repair-remediation-governance.md"
-        )
-        for marker in (
-            "v55.33.0 consolidation candidate",
-            "91 to 90 retained files",
-            "six distinct root BAT actions",
-            "no exact duplicate-content groups",
-            "retirement of the unproven `00_START_HERE.bat` launcher",
-            "v55.29.4 working baseline",
-        ):
-            self.assertIn(marker, repair)
-
-        crypto = normalized_text(
-            ROOT / "docs" / "crypto-spread-bot-reliability.md"
-        )
-        for marker in (
-            "Binance.US Multi-Spread Bot R314",
-            "R317 is a later one-capability, one-active-action candidate",
-            "one current action registry",
-            "no active CLI aliases",
-            "remains unpromoted",
-        ):
-            self.assertIn(marker, crypto)
-
-    def test_gateway_intelligence_core_preserves_local_first_boundary(self) -> None:
-        text = normalized_text(
-            ROOT / "docs" / "gateway-intelligence-core-evidence.md"
-        )
-        required = (
-            "Gateway Intelligence Core v0.1.4",
-            "private package build label is intentionally omitted",
-            "91 of 91 source tests",
-            "91 of 91 exact-extract tests",
-            "23 of 23 deterministic evaluations",
-            "54 of 54 managed-identity checks",
-            "17 bounded items",
-            "Field acceptance remains open for Windows double-click launch",
-            "automatic routines remain local",
-            "artifact identities remain permanently distinct",
-            "acceptance can change disposition and current authority, but never merge, overwrite, or relabel",
-        )
-        for marker in required:
-            self.assertIn(marker, text)
-
-    def test_sagemath_study_preserves_registration_vs_acceptance(self) -> None:
-        text = normalized_text(
-            ROOT / "docs" / "sagemath-wsl-manager-recovery.md"
-        )
-        required = (
-            "SageMath WSL Manager v1.3.2",
-            "registered final package",
-            "not rerun in the current portfolio review",
-            "One human entrypoint owns install, repair, launch, upgrade, status, and support routing",
-            "A registered package remains distinct from a freshly accepted Windows/Norton release",
-            "moving upstream installer",
-            "cannot enable WSL",
-        )
-        for marker in required:
-            self.assertIn(marker, text)
-
-    def test_named_showcases_state_provenance_and_public_boundary(self) -> None:
-        required_headings = (
-            "## Evidence source",
-            "## Showcase objective",
-            "## Reliability invariants",
-            "## Synthetic scenarios",
-            "## Public boundary",
-            "## Limitations",
-        )
-        for path, provenance_markers in SHOWCASE_PROVENANCE.items():
-            with self.subTest(path=path.relative_to(ROOT)):
-                self.assertTrue(path.is_file())
-                raw = path.read_text(encoding="utf-8")
-                lower = " ".join(raw.lower().split())
-                for heading in required_headings:
-                    self.assertIn(heading, raw)
-                self.assertTrue(any(marker in lower for marker in provenance_markers))
-                self.assertIn("synthetic", lower)
-                self.assertRegex(lower, r"\bcannot\b")
+            with self.subTest(path=path.name):
+                self.assertIn(f"docs/{path.name}", readme)
+                body = path.read_text(encoding="utf-8")
+                self.assertIn("**Deliverable:** Design-analysis document.", body)
+                self.assertIn("## Evidence and limitations", body)
 
     def test_high_value_credential_formats_are_detected(self) -> None:
         for label, values in CREDENTIAL_FIXTURES.items():
@@ -320,7 +150,7 @@ class DocumentationTests(unittest.TestCase):
                     self.assertIsNotNone(pattern.search(value))
 
     def test_named_showcases_contain_no_sensitive_or_operational_residue(self) -> None:
-        for path in SHOWCASE_PROVENANCE:
+        for path in self.markdown_files():
             text = path.read_text(encoding="utf-8")
             for label, pattern in SENSITIVE_PATTERNS.items():
                 with self.subTest(path=path.relative_to(ROOT), pattern=label):

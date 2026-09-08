@@ -1,157 +1,21 @@
-# Multi-Exchange Crypto Spread-Bot Reliability
+# Cross-system data consistency
 
-## Evidence source
+**Deliverable:** Design-analysis document. **Evidence type:** Synthetic scenario discussion.
 
-This public case study is informed by three owner-operated working/save-state
-lineages and their newer consolidation candidates current through August 30,
-2026:
+## Problem
 
-- **Kraken Multi SpreadBot r338-v2.17.10** remains the reviewed
-  Windows-working baseline represented by this study.
-- **Coinbase Multi-Asset Spread Bot R312.4** remains the known-good line; newer
-  R312.6 portfolio and release-control evidence is retained separately and does
-  not replace the baseline merely because a support export completed.
-- **Binance.US Multi-Spread Bot R314** remains the confirmed Windows-working
-  safe state. R317 is a later one-capability, one-active-action candidate with
-  one first-party launcher, one current action registry, no active CLI aliases,
-  explicit retirement of duplicate routes, and no exact duplicate-content
-  groups in the sealed candidate. It remains unpromoted until target Windows and
-  normal-protection acceptance is complete.
+Independent external systems can report different or stale transaction states.
 
-The private evidence includes exact package identities, Windows-working
-confirmation, managed-file checks, complete regression suites, healthy runtime
-rosters, authenticated-feed evidence, project-local support exports, and
-explicit current/candidate/rollback separation.
+## Practical value
 
-The latest reviews also preserve important uncertainty rather than hiding it:
-an exported source-context copy can be over-redacted without invalidating the
-installed runtime; queue-integrity failures can require per-market resync;
-insufficient-funds churn and private-rate waits can consume operational
-capacity; a cold fee-net scorecard cannot justify a ranking preference; and a
-cleaner command surface does not promote a candidate without native acceptance.
+Explicit uncertainty and consistent records make automated decisions easier to review.
 
-This showcase publishes the reliability and consolidation model only. It does
-not publish operational source, venue credentials, symbols, order parameters,
-private strategies, account-specific economics, or authenticated endpoints.
+## Evidence and limitations
 
-## Showcase objective
+This abstract summarizes an existing reliability study. It describes a review concern; it does not claim that a corresponding implementation has passed a runtime test. Synthetic scenarios are illustrative, not measured production outcomes.
 
-A spread controller crosses several uncertain boundaries at once: market-data
-freshness, fee and precision rules, local state, remote order state, export
-fidelity, command-surface ownership, and process restart recovery. A safe
-controller must prevent one uncertain write, stale observation, duplicate
-command path, or misleading support artifact from becoming a duplicate order or
-an unexplained inventory change.
+This document is not a released application, executable demonstration, or deployment guide. It cannot operate a real system. It does not establish performance, safety, or compatibility in an external implementation.
 
-## Reliability invariants
-
-- Every potential write begins as a durable intent with a unique local identity.
-- Market data must satisfy freshness and completeness checks before it can
-  support a decision.
-- Estimated outcomes include fees, rounding, precision, and available depth;
-  gross spread alone is not authoritative.
-- One current action registry maps each supported command to one authoritative
-  backend implementation.
-- Historical and unproven aliases fail explicitly instead of forwarding into
-  older duplicate implementations.
-- A wrapper and trading core may remain separate only when they own distinct
-  admission and runtime boundaries rather than competing launch authority.
-- A cold or incomplete scorecard remains neutral and cannot boost thin evidence.
-- An ambiguous submit or cancel blocks another write until remote state is
-  reconciled.
-- Partial fills update inventory and remaining intent before another action is
-  considered.
-- Per-market queue-integrity failure places only the affected scope into
-  fail-neutral or resync-required state.
-- Duplicate workers cannot own the same account-and-strategy scope.
-- Per-market limits, aggregate inventory limits, and loss guardrails fail
-  closed when required state is missing.
-- Account-specific exchange filters must be observed through the approved
-  authenticated read-only boundary before new exposure is considered.
-- Rate-budget exhaustion stops before send rather than turning delay into an
-  unbounded retry.
-- Support-export fidelity is evaluated separately from installed runtime
-  identity.
-- Restart recovery begins with read-only reconciliation, not automatic order
-  resubmission.
-- Current safe-state evidence outranks stale pre-confirmation wording embedded
-  in historical diagnostics.
-- A newer candidate does not replace a confirmed rollback until exact package,
-  target-environment, and project-specific acceptance all pass.
-
-```mermaid
-flowchart TD
-    A["Read fresh market and account state"] --> B{"Evidence complete?"}
-    B -- "No" --> H["Hold and record reason"]
-    B -- "Yes" --> C["Resolve one canonical action"]
-    C --> D["Create one durable intent"]
-    D --> E["Submit at most once"]
-    E --> F{"Authoritative outcome?"}
-    F -- "Filled or rejected" --> G["Update inventory and close intent"]
-    F -- "Ambiguous" --> I["Freeze writes and reconcile remote state"]
-    I --> F
-    G --> J{"Queue, filter, and fee evidence healthy?"}
-    J -- "No" --> K["Fail neutral or resync affected scope"]
-    J -- "Yes" --> A
-    K --> A
-```
-
-## Synthetic scenarios
-
-| Scenario | Required response |
-| --- | --- |
-| Submit response is lost after the venue may have accepted it | Mark ambiguous and reconcile before any retry |
-| Order book is stale or incomplete | Refuse the decision and preserve the prior state |
-| A partial fill arrives during cancellation | Reconcile fill, remaining quantity, and inventory before another action |
-| Local process restarts with an open intent | Resume read-only reconciliation from durable state |
-| Two controller instances start | Permit one owner and place the other in observe-only conflict state |
-| Fee or precision metadata is unavailable | Treat net outcome as unknown and block the write |
-| Two command names map to the same backend behavior | Keep the documented canonical action and retire the duplicate route explicitly |
-| An unknown historical CLI alias is used | Return an unsupported-action result; do not forward into archived code |
-| Account-specific exposure-filter evidence is unavailable after a platform change | Block new exposure while preserving read-only status and reconciliation paths |
-| Queue evidence fails integrity for one market | Fail neutral for that scope and require a fresh resync |
-| Balance is insufficient for a planned action | Stop the write and avoid amend/retry churn |
-| Private-rate wait exceeds its budget | Stop before send and record the deferred refresh |
-| Support export completes for a newer build | Treat it as diagnostic evidence, not automatic promotion over a confirmed Windows baseline |
-| Support export changes executable source through redaction | Mark the export non-runnable while preserving the verified installed-runtime result |
-| Venue reports several plausible matching orders | Escalate; do not guess which action belongs to the intent |
-| Inventory differs from the local ledger | Freeze new writes until the discrepancy is explained |
-| Scorecard has no completed cycle | Keep evidence-qualified preference neutral |
-
-## Audit evidence
-
-The minimum audit trail records package and action-registry identity, canonical
-command resolution, market-data freshness, account-state freshness, intent
-identity, preconditions, estimated net-outcome class, remote correlation
-evidence, order-state transitions, fill reconciliation, inventory changes,
-queue-integrity state, account-filter readiness, rate-budget outcome,
-support-export fidelity, guardrail results, lifecycle authority, and the reason
-an action was taken or withheld.
-
-A public demonstration can use a deterministic exchange simulator that injects
-stale books, lost responses, partial fills, cancel races, insufficient balances,
-rate waits, queue corruption, duplicate command aliases, missing account-filter
-evidence, export redaction, and process restarts. The key property is not
-profitability; it is that one durable intent cannot silently create two
-externally effective actions.
-
-## Public boundary
-
-This document contains no exchange endpoint, account identifier, API key,
-private key, symbol list, price, quantity, fee schedule, spread threshold,
-selection rule, inventory target, profit objective, order command, authenticated
-filter response, or live-write implementation. It cannot authenticate,
-calculate a trade, submit an order, or manage funds.
-
-The named private projects remain owner-only. Candidate versions remain
-unpromoted until their native Windows, dependency, endpoint-protection,
-authenticated read-only, and project-specific acceptance gates are complete.
-
-## Limitations
-
-This is not financial advice, a trading strategy, a performance claim, or a
-deployment guide. Exchange behavior and account-specific controls can change,
-and any implementation requires its own legal, security, platform, dependency,
-and operational review.
+[All studies](../README.md)
 
 Copyright © 2026 Gateway Information Group LLC. All rights reserved.
