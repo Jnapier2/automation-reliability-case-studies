@@ -24,7 +24,7 @@ Fifteen short design analyses examine how incomplete evidence, interrupted work,
 
 ## Evidence and limitations
 
-These studies discuss synthetic scenarios and general review concerns. They do not claim measured production outcomes or demonstrate executable integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove runtime behavior.
+These studies discuss synthetic scenarios and general review concerns. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) also includes a generated report from an inspected private candidate, with its fixture method and limits. The studies do not claim measured production outcomes or demonstrate executable integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
 
 ## Related runnable work
 
