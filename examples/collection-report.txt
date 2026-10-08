@@ -1,0 +1,16 @@
+SYNTHETIC EXAMPLE — No media was downloaded, validated or played.
+
+Vdownloader - Collection / Session List
+Generated: 2026-10-08T03:03:29.784783+00:00
+Session: synthetic-review
+Status: synthetic-fixture | Quality: 480p
+Selected items: 5 | Whole-volume total: UNKNOWN
+downloaded: 1 | archived: 1 | partial: 0 | completed unverified: 1 | pending: 0 | running: 0 | failed: 1 | cancelled: 0 | deferred: 1 | unknown: 0
+
+Archive memory does not prove a file still exists. Gaps or limits do not establish the end of a volume. Completion is based on recorded engine outcomes, not fresh playback.
+
+#1 DOWNLOADED | New media 1 | Archived media 0 | Restarts 0
+#2 ARCHIVED | New media 0 | Archived media 1 | Restarts 0
+#3 FAILED | New media 0 | Archived media 0 | Restarts 0
+#4 DEFERRED | New media 0 | Archived media 0 | Restarts 0
+#5 COMPLETED_UNVERIFIED | New media 0 | Archived media 0 | Restarts 0
