@@ -1,0 +1,10 @@
+{
+  "archives_created": 2,
+  "archives_remaining": 2,
+  "capture_date": "2026-10-15",
+  "example_type": "synthetic fixture captured from a tested private source revision",
+  "operator_note_preserved": true,
+  "owned_archives_recognized": 2,
+  "remaining_archive_preserved": true,
+  "scope": "Retained local archive bookkeeping only; file moves, application and provider lifecycle are not qualified."
+}

@@ -127,7 +127,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_document_inventory_and_scope(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertEqual(len(SHOWCASE_PROVENANCE), 15)
+        self.assertEqual(len(SHOWCASE_PROVENANCE), 16)
         for path in SHOWCASE_PROVENANCE:
             with self.subTest(path=path.name):
                 self.assertIn(f"docs/{path.name}", readme)
