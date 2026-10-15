@@ -2,7 +2,15 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Fifteen short design analyses examine how incomplete evidence, interrupted work, and inconsistent system state affect reliability. The deliverables are the documents linked below. They are not fifteen released software products.
+Sixteen short design analyses examine how incomplete evidence, interrupted work, and inconsistent system state affect reliability. They help reviewers understand how operating decisions can remain traceable when observations or records are incomplete. The deliverables are the documents linked below; they are not sixteen released software products.
+
+## Start with the evidence
+
+- **Inspect a captured result:** [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) pairs a concrete bookkeeping defect with a [generated synthetic fixture result](examples/archive-inventory.json). Compare the intended outcome with what the inspected source actually recognized and preserved.
+- **Review a user-facing report:** [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) explains the included [text report](examples/collection-report.txt) and [HTML report](examples/collection-report.html). Download and open the HTML file locally to see its rendered layout; GitHub's file viewer displays the source.
+- **Explore an operations decision:** [Consistent operations views](docs/botops-control-plane-cohesion.md) shows why missing observations, muted incidents, and healthy operation need different interpretations. Its scenarios are illustrative rather than captured runtime output.
+
+Each study identifies the problem, practical usefulness, evidence method, and limitations. The examples support those stated boundaries; they do not operate the private applications.
 
 ## Studies
 
@@ -17,6 +25,7 @@ Fifteen short design analyses examine how incomplete evidence, interrupted work,
 - [Version-specific evidence](docs/prediction-market-save-state-reconciliation.md)
 - [Changing external interfaces](docs/prediction-market-structural-parity.md)
 - [Diagnostic confidence](docs/local-network-guard-evidence.md)
+- [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md)
 - [Evidence and interpretation](docs/gateway-intelligence-core-evidence.md)
 - [Evaluating remediation outcomes](docs/windows-repair-remediation-governance.md)
 - [Cross-platform readiness](docs/sagemath-wsl-manager-recovery.md)
@@ -24,7 +33,7 @@ Fifteen short design analyses examine how incomplete evidence, interrupted work,
 
 ## Evidence and limitations
 
-These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. The studies do not claim measured production outcomes or demonstrate executable integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
+These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) includes a result captured from an executed local fixture, with a failing earlier revision and a passing corrected revision. The studies do not claim measured production outcomes or demonstrate live integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
 
 ## Related runnable work
 
