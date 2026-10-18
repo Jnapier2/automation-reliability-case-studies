@@ -1,0 +1,16 @@
+{
+  "example_type": "captured Windows export and synthetic bookkeeping fixture",
+  "capture_date": "2026-10-15",
+  "archives_created": 2,
+  "archives_recognized_before": 0,
+  "archives_recognized_after": 2,
+  "archive_contents_unchanged": true,
+  "operator_note_preserved": true,
+  "malformed_settings_preserved": true,
+  "safe_cached_startup_failure_preserved": true,
+  "secret_bearing_cached_record_excluded": true,
+  "capture_status": "partial_cached_evidence",
+  "full_application_lifecycle_verified": false,
+  "endpoint_protection_clearance": "not established",
+  "scope": "Native diagnostic-export action and retained-archive recognition only; normal monitoring, workload execution, recovery and file relocation remain unqualified."
+}
