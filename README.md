@@ -6,7 +6,7 @@ Sixteen short design analyses examine how incomplete evidence, interrupted work,
 
 ## Start with the evidence
 
-- **Inspect a captured result:** [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) pairs a concrete bookkeeping defect with a [generated synthetic fixture result](examples/archive-inventory.json). Compare the intended outcome with what the inspected source actually recognized and preserved.
+- **Inspect a captured result:** [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) pairs a concrete bookkeeping defect with a [generated synthetic fixture result](examples/archive-inventory.json) and a [captured Windows export review](examples/windows-export-review.json). Compare what was recognized and preserved, and how partial capture was reported.
 - **Review a user-facing report:** [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) explains the included [text report](examples/collection-report.txt) and [HTML report](examples/collection-report.html). Download and open the HTML file locally to see its rendered layout; GitHub's file viewer displays the source.
 - **Explore an operations decision:** [Consistent operations views](docs/botops-control-plane-cohesion.md) shows why missing observations, muted incidents, and healthy operation need different interpretations. Its scenarios are illustrative rather than captured runtime output.
 
@@ -33,7 +33,7 @@ Each study identifies the problem, practical usefulness, evidence method, and li
 
 ## Evidence and limitations
 
-These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) includes a result captured from an executed local fixture, with a failing earlier revision and a passing corrected revision. The studies do not claim measured production outcomes or demonstrate live integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
+These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) includes source-fixture and Windows diagnostic-export observations, with a failing earlier recognition revision and a passing corrected revision. The studies do not claim measured production outcomes or demonstrate live integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
 
 ## Related runnable work
 
