@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/Jnapier2/automation-reliability-case-studies/actions/workflows/ci.yml)
 
-Sixteen short design analyses examine how incomplete evidence, interrupted work, and inconsistent system state affect reliability. They help reviewers understand how operating decisions can remain traceable when observations or records are incomplete. The deliverables are the documents linked below; they are not sixteen released software products.
+These design analyses examine how incomplete evidence, interrupted work, and inconsistent system state affect reliability. Each document gives reviewers a way to examine an operating decision and trace it back to the available evidence.
 
 ## Start with the evidence
 
@@ -25,6 +25,7 @@ Each study identifies the problem, practical usefulness, evidence method, and li
 - [Version-specific evidence](docs/prediction-market-save-state-reconciliation.md)
 - [Changing external interfaces](docs/prediction-market-structural-parity.md)
 - [Diagnostic confidence](docs/local-network-guard-evidence.md)
+- [Investigating an incomplete Windows wake](docs/windows-wake-incident-evidence.md)
 - [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md)
 - [Evidence and interpretation](docs/gateway-intelligence-core-evidence.md)
 - [Evaluating remediation outcomes](docs/windows-repair-remediation-governance.md)
