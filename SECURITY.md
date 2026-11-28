@@ -2,10 +2,9 @@
 
 ## Repository scope
 
-This repository contains documentation only; there are no executable components
-or live integrations. It contains no deployable automation, credentials, live
-service configuration, wallet or pool configuration, compiled programs,
-launchers, or third-party media.
+This repository contains design documents and offline Python demonstrations.
+The demonstrations use bundled fictional inputs and print their decisions
+to the terminal. They have no live integrations or credential requirements.
 
 ## Reporting a concern
 
@@ -21,5 +20,5 @@ automation parameters, or configuration that could enable unauthorized
 activity receive the highest priority. Confirmed sensitive material will be
 removed from the current revision and repository history as appropriate.
 
-This policy covers the published documentation only. It does not offer support
-for recreating, deploying, or operating the systems described here.
+This policy covers the published documentation and bundled demonstrations.
+The scope is local technical evaluation of the published materials.

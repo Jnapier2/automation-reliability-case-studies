@@ -1,0 +1,4 @@
+{
+  "max_parallel_jobs": 2,
+  "execution_mode": "review_only"
+}
