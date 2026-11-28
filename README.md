@@ -12,6 +12,13 @@ These design analyses examine how incomplete evidence, interrupted work, and inc
 
 Each study identifies the problem, practical usefulness, evidence method, and limitations. The examples support those stated boundaries; they do not operate the private applications.
 
+## Try the offline Windows demos
+
+- **Configuration Change Preview** shows an allowed settings change and how a protected or changed file is handled. [Review the case and demo instructions](docs/configuration-change-preview.md).
+- **Evidence Reconciliation** shows how an exact replay and conflicting evidence lead to different decisions. [Review the case and demo instructions](docs/crypto-spread-bot-reliability.md).
+
+The [Windows demo release](https://github.com/Jnapier2/automation-reliability-case-studies/releases/tag/windows-demos-2026-11-28) includes both ZIPs and their checksums. Each demo runs on fictional input using Python 3.11 or newer.
+
 ## Studies
 
 - [Ambiguous transaction outcomes](docs/exchange-automation-reconciliation.md)
@@ -21,6 +28,7 @@ Each study identifies the problem, practical usefulness, evidence method, and li
 - [Consistent operations views](docs/botops-control-plane-cohesion.md)
 - [Compute readiness and progress](docs/gpu-mining-readiness.md)
 - [Cross-system data consistency](docs/crypto-spread-bot-reliability.md)
+- [Reviewing configuration changes](docs/configuration-change-preview.md)
 - [Decision-input quality](docs/prediction-market-data-quality.md)
 - [Version-specific evidence](docs/prediction-market-save-state-reconciliation.md)
 - [Changing external interfaces](docs/prediction-market-structural-parity.md)
@@ -34,7 +42,7 @@ Each study identifies the problem, practical usefulness, evidence method, and li
 
 ## Evidence and limitations
 
-These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) includes source-fixture and Windows diagnostic-export observations, with a failing earlier recognition revision and a passing corrected revision. The studies do not claim measured production outcomes or demonstrate live integrations. Documentation checks validate file format, links, metadata, and privacy rules; they do not prove application runtime behavior.
+These studies discuss synthetic scenarios and general review concerns. [Consistent operations views](docs/botops-control-plane-cohesion.md) and [Diagnostic confidence](docs/local-network-guard-evidence.md) include source-reviewed distinctions with manually written illustrative scenarios. [Interrupted media transfers](docs/authorized-media-transfer-resilience.md) includes a generated report from an inspected private candidate, with its fixture method and limits. [Diagnostic archive accountability](docs/diagnostic-archive-accountability.md) includes source-fixture and Windows diagnostic-export observations, with a failing earlier recognition revision and a passing corrected revision. The studies describe specific observations and fictional examples. The two Windows demos come with separate runtime checks for their packaged entry points. Their results cover the bundled examples.
 
 ## Related runnable work
 

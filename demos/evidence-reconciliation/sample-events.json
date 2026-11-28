@@ -1,0 +1,6 @@
+[
+  {"event_id": "sample-A", "reported_units": 12},
+  {"event_id": "sample-A", "reported_units": 12},
+  {"event_id": "sample-A", "reported_units": 15},
+  {"event_id": "sample-B", "reported_units": 4}
+]
